@@ -1,0 +1,26 @@
+{
+  "name": "lancer",
+  "version": "0.0.1",
+  "title": "lancer tools",
+  "description": "",
+  "keywords": [
+    "lancer"
+  ],
+  "homepage": "https://github.com/daixianfeng/lancer",
+  "author": {
+    "name": "Daixianfeng",
+    "url": "dai_xianfeng@hotmail.com"
+  },
+  "maintainers": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daixianfeng/lancer.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-less": "^3.1.0",
+    "gulp-webserver": "^0.9.1"
+  }
+}

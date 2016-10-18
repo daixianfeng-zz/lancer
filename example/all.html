@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+
+    <title>test all loader</title>
+    <meta name="link-referer" content="">
+
+</head>
+<body>
+    <div id="result">
+        
+    </div>
+</body>
+<script type="text/javascript" charset="utf-8" src="../libs/requirejs/require.min.js"></script>
+<script type="text/javascript">
+    var libPathRoot = '/libs/';
+    var toolPathRoot = '/dist/0.0.1/';
+    requirejs.config({
+        baseUrl: '',
+        paths: {
+            jquery: libPathRoot+'jquery/jquery-2.1.4.min',
+            echarts: libPathRoot+'echarts/echarts.min',
+            G: toolPathRoot+'util/G',
+            url: toolPathRoot+'util/G-url',
+            gThird: toolPathRoot+'util/G-third',
+            gUser: toolPathRoot+'util/G-user',
+            gValidate: toolPathRoot+'util/G-validate',
+            gDialog: toolPathRoot+'dialog/dialog',
+            GVerification: toolPathRoot+'verification/verification',
+            gFixedTop: toolPathRoot+'block/fixed-top',
+            gTab: toolPathRoot+'block/tab',
+            gLineChart: toolPathRoot+'charts/line',
+            jsencrypt: toolPathRoot+'cipher/jsencrypt',
+            GModal: toolPathRoot+'dialog/modal',
+            gInput: toolPathRoot+'input/input',
+            gFilterTable: toolPathRoot+'list/filter-table',
+            GPagination: toolPathRoot+'list/pagination',
+            GLoadMore: toolPathRoot+'load-more/load-more',
+            GNav: toolPathRoot+'nav/nav',
+            GNavVer: toolPathRoot+'nav/vertical-nav',
+            GDatepicker: toolPathRoot+'popup/datepicker',
+            gProvinceCity: toolPathRoot+'province-city/province-city',
+            GPutupFollow: toolPathRoot+'putup-follow/putup-follow',
+            gSuspensionBox: toolPathRoot+'suspension-box/suspension-box',
+            GSwiper: toolPathRoot+'swiper/swiper',
+            GAjaxValidate: toolPathRoot+'verification/ajax-validate',
+        }
+    });
+</script>
+<script type="text/javascript">
+    require(['jquery', 'echarts'
+        , 'G'
+        , 'url'
+        , 'gThird'
+        , 'gUser'
+        , 'gValidate'
+        , 'gDialog'
+        , 'GVerification'
+        , 'gFixedTop'
+        , 'gTab'
+        , 'gLineChart'
+        , 'jsencrypt'
+        , 'GModal'
+        , 'gInput'
+        , 'gFilterTable'
+        , 'GPagination'
+        , 'GLoadMore'
+        , 'GNav'
+        , 'GNavVer'
+        , 'GDatepicker'
+        , 'gProvinceCity'
+        , 'GPutupFollow'
+        , 'gSuspensionBox'
+        , 'GSwiper'
+        , 'GAjaxValidate'],function($, echarts
+            , G
+            , gThird
+            , url
+            , gUser
+            , gValidate
+            , gDialog
+            , GVerification
+            , gFixedTop
+            , gTab
+            , gLineChart
+            , jsencrypt
+            , GModal
+            , gInput
+            , gFilterTable
+            , GPagination
+            , GLoadMore
+            , GNav
+            , GNavVer
+            , GDatepicker
+            , gProvinceCity
+            , GPutupFollow
+            , gSuspensionBox
+            , GSwiper
+            , GAjaxValidate){
+
+        console.log('$: ');console.log($);
+        console.log('echarts: ');console.log(echarts);
+        console.log('G: ');console.log(G);
+        console.log('gThird: ');console.log(gThird);
+        console.log('url: ');console.log(url);
+        console.log('gUser: ');console.log(gUser);
+        console.log('gValidate: ');console.log(gValidate);
+        console.log('gDialog: ');console.log(gDialog);
+        console.log('GVerification: ');console.log(GVerification);
+        console.log('gFixedTop: ');console.log($.fn.gFixedTop);
+        console.log('gTab: ');console.log($.fn.gTab);
+        console.log('gLineChart: ');console.log(gLineChart);
+        console.log('jsencrypt: ');console.log(jsencrypt);
+        console.log('GModal: ');console.log(GModal);
+        console.log('gInput: ');console.log(gInput);console.log($.fn.gInput);
+        console.log('gFilterTable: ');console.log(gFilterTable);
+        console.log('GPagination: ');console.log(GPagination);
+        console.log('GLoadMore: ');console.log(GLoadMore);
+        console.log('GNav: ');console.log(GNav);
+        console.log('GNavVer: ');console.log(GNavVer);
+        console.log('GDatepicker: ');console.log(GDatepicker);
+        console.log('gProvinceCity: ');console.log(gProvinceCity);
+        console.log('GPutupFollow: ');console.log(GPutupFollow);
+        console.log('gSuspensionBox: ');console.log($.fn.gSuspensionBox);
+        console.log('GSwiper: ');console.log(GSwiper);
+        console.log('GAjaxValidate: ');console.log(GAjaxValidate);
+    });
+</script>
+</html>
+
