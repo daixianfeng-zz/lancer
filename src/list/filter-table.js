@@ -22,11 +22,15 @@
             }
         };
         var configDefault = {
+            tableClass: '',
             tableTextAlign: 'left',
             theadTextAlign: 'left',
             nowrap: true,
+            filterItem: false,
+            filterContainer: '#filter-content',
+            filterItemClass: 'filter-item',
             filterActiveClass: 'active',
-            // filterItem:[{name:"全部", conditions:{start:1022,end:1099}},{name:"待起息",conditions:{}},{name:"起息",conditions:{value:1}},{name:"代付款",conditions:{value:3}}],
+            pageConfig: {},
             // col: [{thead:"购买日期", order: true, textAlign:'left', dataName:'buyDate'},{thead:"起购金额", order: false, textAlign:'left', dataName:'buyMoney'},{thead:"开始日期", order: false, textAlign:'left',dataName:'createTime'},{thead:"结束日期", order: false, textAlign:'left', dataName:'endDate'},{thead:"投资编号", order: true, textAlign:'left', dataName:'investmentId'},{thead:"剩余时间", order: true, textAlign:'left', dataName:'leftTime'},{thead:"订单编号", order: false, textAlign:'left', dataName:'orderId'},{thead:"产品编号", order: false, textAlign:'left', dataName:'productId'},{thead:"产品名称", order: false, textAlign:'left', dataName:'productName'},{thead:"产品名称", order: false, textAlign:'left', dataName:'productTitle'},{thead:"产品类型", order: false, textAlign:'left', dataName:'productType'},{thead:"产品收益", order: false, textAlign:'left', dataName:'received'},{thead:"产品状态", order: false, textAlign:'left', dataName:'status'}],
             // getData: function(conditions, callback){
             //     $.ajax({
@@ -66,9 +70,8 @@
             _render: function(){
                 var el = this.el;
                 var conf = this.conf;
-                $(el).append('<div class="filter-content"></div><div class="filter-table-container"><table class="filter-table"></table></div>');
+                $(el).addClass('filter-table');
                 var theadTh = '';
-                var filterContent = '';
                 $.each(conf.col, function(index, item){
                     var orderIcon = '';            
                     if(item.order){
@@ -76,24 +79,24 @@
                     }               
                     theadTh += '<th style="width:'+item.width+';" data-num='+(index+1)+'>'+item.thead+orderIcon+'</th>';            
                 });
-                $.each(conf.filterItem, function(index, item){
-                    filterContent += '<a data-index="'+index+'" class="filter-item" href="javascript.void(0)">'+item.name+'</a>';
-                });
-                $(el).find('.filter-table').append('<thead class="filter-thead"><tr>'+theadTh+'</tr></thead><tbody class="filter-tbody"></tbody>');
-                $(el).find('.filter-content').append(filterContent);
+                $(el).append('<thead class="filter-thead"><tr>'+theadTh+'</tr></thead><tbody class="filter-tbody"></tbody>');
             },
             _event: function(){
                 var el = this.el;
                 var conf = this.conf;
                 var self = this;
-                $(el).find('.filter-item').on('click', function(){
-                    toggleFilterClass($(this), conf.filterActiveClass);
-                    var index = $(this).attr('data-index');
-                    self._getData(conf.filterItem[index].conditions, function(result, pageData){
-                        self.conditions = conf.filterItem[index].conditions;
+                if(conf.filterItem){
+                    $(conf.filterContainer).find('.'+conf.filterItemClass).on('click', function(){
+                        $(this).addClass(conf.filterActiveClass);
+                        $(this).siblings('.'+conf.filterItemClass).removeClass(conf.filterActiveClass); 
+                        var filter = $(this).attr('data-filter');
+                        self._getData(conf.filterItem[filter].conditions, function(result, pageData){
+                            self.conditions = conf.filterItem[filter].conditions;
+                        });
+                        return false;
                     });
-                    return false;
-                });
+                }
+                
                 var isSort = 0;
                 $(el).find('.filter-thead').on('click','th', function(){
                     if($(this).find('.order-icon').length === 1){
@@ -136,14 +139,14 @@
                 var self = this;
                 var conf = this.conf;
                 this._render();
-                $(el).find('.filter-table').css(cssObj.tableNowrap);
+                $(el).css(cssObj.tableNowrap);
                 if(conf.nowrap){
                     this.setNowrap(); 
                 }
                 if(conf.page){
                     self.pagination = new GPagination(conf.page, function(page){
                         self._getData($.extend({},self.conditions,{page: page}));
-                    }, {});
+                    }, conf.pageConfig);
                 }
                 this.specialCol();
                 this._event();
@@ -163,10 +166,10 @@
                 var conf = this.conf;
                 var el =this.el;
                 conf.col.textAlign = conf.col.textAlign ? conf.col.textAlign : conf.tableTextAlign;
-                $(el).find('.filter-table').css('textAlign', conf.tableTextAlign);
-                $(el).find('.filter-table th').css('textAlign', conf.theadTextAlign);
+                $(el).css('textAlign', conf.tableTextAlign);
+                $(el).find('.filter-thead th').css('textAlign', conf.theadTextAlign);
                 $.each(conf.col, function(index ,item){
-                    $(el).find('.filter-table td[data-order="'+(index+1)+'"]').css('textAlign', item.textAlign);
+                    $(el).find('td[data-order="'+(index+1)+'"]').css('textAlign', item.textAlign);
                 });
             },
             renderData: function(data){
@@ -192,10 +195,6 @@
                 this.specialCol();
             }
         };
-        function toggleFilterClass(el, className){
-            el.addClass(className);
-            el.siblings('.filter-item').removeClass(className);    
-        }
 
         return FilterTable;
     }

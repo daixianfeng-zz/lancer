@@ -13,20 +13,38 @@
     <link rel="stylesheet" href="/dist/0.0.1/dialog/dialog-web.css">
 </head>
 <body>
-    <div id="result">
-        
+    <div id="filter-content">
+        <span class="filter-item" data-filter="all">全部</span>
+        <span class="filter-item" data-filter="wait">等待</span>
+        <span class="filter-item" data-filter="ing">进行</span>
+        <span class="filter-item" data-filter="pre">前期</span>
     </div>
-    <div id="page">
-        
+    <div>
+        <table id="result">
+            
+        </table>
     </div>
+    <ul id="page">
+        
+    </ul>
 </body>
 <script type="text/javascript" charset="utf-8" src="../libs/requirejs/require.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="./map.js"></script>
 <script type="text/javascript">
     require(['jquery','G','GFilterTable', 'GPagination'],function($, G, GFilterTable, GPagination){
         var demoTable = new GFilterTable('#result', {
-            filterItem: [],
+            filterItem: {
+                all: {conditions:{start:1022,end:1099}},
+                wait: {conditions:{value:2}},
+                ing: {conditions:{value:1}},
+                pre: {conditions:{value:3}}
+            },
+            filterContainer: '#filter-content',
+            filterItemClass: 'filter-item',
             page: '#page',
+            pageConfig: {
+                wrapper: '<li class="paginate_button"><a>${page}</a></li>'
+            },
             col: [
                 {thead: 'id', dataName: 'bankId'},
                 {thead: '编号', dataName: 'bankCode'},
