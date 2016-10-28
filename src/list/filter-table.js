@@ -1,6 +1,6 @@
 ;(function(){
     if ( typeof define === "function" && define.amd ) {
-        define( 'gFilterTable', ['require', 'jquery', 'G', 'GPagination'], function(require) {
+        define( 'GFilterTable', ['require', 'jquery', 'G', 'GPagination'], function(require) {
             return factory(require('jquery'), require('G'), require('GPagination'));
         } );
     }else if ( typeof module === "object" && typeof module.exports === "object" ) {
@@ -25,6 +25,7 @@
             tableTextAlign: 'left',
             theadTextAlign: 'left',
             nowrap: true,
+            filterActiveClass: 'active',
             // filterItem:[{name:"全部", conditions:{start:1022,end:1099}},{name:"待起息",conditions:{}},{name:"起息",conditions:{value:1}},{name:"代付款",conditions:{value:3}}],
             // col: [{thead:"购买日期", order: true, textAlign:'left', dataName:'buyDate'},{thead:"起购金额", order: false, textAlign:'left', dataName:'buyMoney'},{thead:"开始日期", order: false, textAlign:'left',dataName:'createTime'},{thead:"结束日期", order: false, textAlign:'left', dataName:'endDate'},{thead:"投资编号", order: true, textAlign:'left', dataName:'investmentId'},{thead:"剩余时间", order: true, textAlign:'left', dataName:'leftTime'},{thead:"订单编号", order: false, textAlign:'left', dataName:'orderId'},{thead:"产品编号", order: false, textAlign:'left', dataName:'productId'},{thead:"产品名称", order: false, textAlign:'left', dataName:'productName'},{thead:"产品名称", order: false, textAlign:'left', dataName:'productTitle'},{thead:"产品类型", order: false, textAlign:'left', dataName:'productType'},{thead:"产品收益", order: false, textAlign:'left', dataName:'received'},{thead:"产品状态", order: false, textAlign:'left', dataName:'status'}],
             // getData: function(conditions, callback){
@@ -86,7 +87,7 @@
                 var conf = this.conf;
                 var self = this;
                 $(el).find('.filter-item').on('click', function(){
-                    toggleClass($(this));
+                    toggleFilterClass($(this), conf.filterActiveClass);
                     var index = $(this).attr('data-index');
                     self._getData(conf.filterItem[index].conditions, function(result, pageData){
                         self.conditions = conf.filterItem[index].conditions;
@@ -191,9 +192,9 @@
                 this.specialCol();
             }
         };
-        function toggleClass(el){
-            el.css('backgroundColor','#ff8');
-            el.siblings('.filter-item').css(cssObj.filterItem);    
+        function toggleFilterClass(el, className){
+            el.addClass(className);
+            el.siblings('.filter-item').removeClass(className);    
         }
 
         return FilterTable;
