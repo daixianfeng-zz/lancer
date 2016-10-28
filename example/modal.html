@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+
+    <title>test web dialog</title>
+    <meta name="link-referer" content="">
+    <link rel="stylesheet" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" href="/dist/0.0.1/dialog/modal.css">
+    <style>
+        .modal-content {
+            margin: 50px auto;
+            width: 680px;
+        }
+        .modal-content p {
+            text-align: center;
+            line-height: 70px;
+        }
+        .modal-content p input {
+            display: inline-block;
+            width: 280px;
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div id="result">
+        <p><button id="test-modal">模态框测试</button></p>
+    </div>
+    <div id="modal-register-tpl">
+      <div class="modal-content">
+        <p> <input type="text" placeholder="手机号" /></p>
+        <p> <input type="password" placeholder="密码" /></p>
+        <p> <input type="password" placeholder="确认密码" /></p>
+        <p><button id="register-submit">下一步</button></p>
+      </div>
+    </div>
+    <div id="modal-bind-tpl">
+      <div class="modal-content">
+        <p> <input type="text" placeholder="公司名" /></p>
+        <p> <input type="password" placeholder="社会统一代码" /></p>
+        <p><button id="bind-back">上一步</button></p>
+        <p><button id="bind-submit">下一步</button></p>
+      </div>
+    </div>
+    <div id="modal-register-success-tpl">
+      <div class="modal-content">
+        <p>成功</p>
+      </div>
+    </div>
+</body>
+<script type="text/javascript" charset="utf-8" src="../libs/requirejs/require.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="./map.js"></script>
+<script type="text/javascript">
+    require(['jquery','G','GModal'],function($, G, GModal){
+        $.fn.extend({
+            animateCss: function (animationName, callback) {
+                var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+                $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+                    $(this).removeClass('animated ' + animationName);
+                    callback && callback();
+                });
+                return this;
+            }
+        });
+
+        var registerModal = {};
+        var bindModal = {};
+        var successModal = {};
+        var modalTest = function(){
+            registerModal = new GModal('#modal-register-tpl', {id: 'register'});
+            bindModal = new GModal('#modal-bind-tpl', {id: 'bind'});
+            successModal = new GModal('#modal-register-success-tpl', {id: 'register-done'});
+            $('#g-modal').on('click', '#register-submit', function(){
+                bindModal.open();
+            });
+            $('#g-modal').on('click', '#bind-submit', function(){
+                successModal.open();
+            });
+            $('#g-modal').on('click', '#bind-back', function(){
+                registerModal.open();
+            });
+        }
+        modalTest.toStep1 = function(){
+            registerModal.open();
+        }
+        modalTest.toStep2 = function(){
+            bindModal.open();
+        }
+
+        modalTest();
+        $('#test-modal').on('click', function(){
+            modalTest.toStep1();
+            return false;
+        });
+    });
+</script>
+</html>
+

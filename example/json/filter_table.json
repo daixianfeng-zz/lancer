@@ -1,0 +1,24 @@
+{
+    "apiError": 0,
+    "data": {
+        "dataList": [
+            { "bankCode": "102100000089", "bankId": "102", "bankName": "工商银行", "cityCode": "1000", "showName": "中国工商银行股份有限公司北京南苑支行" },
+            { "bankCode": "102100000097", "bankId": "102", "bankName": "工商银行", "cityCode": "1000", "showName": "中国工商银行股份有限公司北京南中轴路支行" },
+            { "bankCode": "102100000101", "bankId": "102", "bankName": "工商银行", "cityCode": "1000", "showName": "中国工商银行股份有限公司北京东四南支行" },
+            { "bankCode": "102100001161", "bankId": "102", "bankName": "工商银行", "cityCode": "1000", "showName": "中国工商银行股份有限公司北京南口支行" },
+            { "bankCode": "102100009658", "bankId": "102", "bankName": "工商银行", "cityCode": "1000", "showName": "中国工商银行股份有限公司北京南湖中园支行" },
+            { "bankCode": "102100009682", "bankId": "102", "bankName": "工商银行", "cityCode": "1000", "showName": "中国工商银行股份有限公司北京南礼士路支行营业室" },
+            { "bankCode": "102100018643", "bankId": "102", "bankName": "工商银行", "cityCode": "1000", "showName": "中国工商银行股份有限公司北京万寿路南口支行" },
+            { "bankCode": "102100021519", "bankId": "102", "bankName": "工商银行", "cityCode": "1000", "showName": "中国工商银行股份有限公司北京南纬路支行" },
+            { "bankCode": "102100024631", "bankId": "102", "bankName": "工商银行", "cityCode": "1000", "showName": "中国工商银行股份有限公司北京科学园南路支行" },
+            { "bankCode": "102100025458", "bankId": "102", "bankName": "工商银行", "cityCode": "1000", "showName": "中国工商银行股份有限公司北京中关村南路支行" }
+        ],
+        "page": "4",
+        "totalPage": "9",
+        "perPage": "5",
+        "totalNum": "43",
+        "error": 0,
+        "message": ""
+    },
+    "msg": ""
+}

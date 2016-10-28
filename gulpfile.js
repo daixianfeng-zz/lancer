@@ -6,7 +6,7 @@ var clean = require('gulp-clean');
 
 gulp.task('webserver', function(){
     gulp.src('./').pipe(webserver({
-            port: 8888,//端口
+            port: 8801,//端口
             host: '127.0.0.1',//域名
             liveload: false,//实时刷新代码。不用f5刷新
             directoryListing: {
