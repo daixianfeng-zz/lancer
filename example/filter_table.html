@@ -37,6 +37,7 @@
                 $.ajax({
                     url: './json/filter_table.json',
                     dataType: 'json',
+                    data: conditions,
                     success: function(result){
                         callback(result.data.dataList, {page: result.data.page, totalPage: result.data.totalPage});
                     } 
