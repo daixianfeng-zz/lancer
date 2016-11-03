@@ -28,45 +28,23 @@
             },
             //最外层包含框不吸顶
             navListContainerStatic: {
-                position: 'relative'
+                position: 'relative',
             },
             // 最外层包含框--吸顶
             navListContainerFixed: {
                 position: 'fixed'
-            },
-            //下拉列表三角图标
-            dropIcon: {
-                display: 'inline-block',
-                width: '0',
-                height: '0',
-                border: '6px solid transparent',
-                borderTop: '6px solid #0f0'
-            },
-
-            //子列表样式
-            //UL
-            subNavListUl: {
-                display: 'none',
-                position: 'absolute',
-                top: '0',
-                left: '0',
-                padding: '0'
-            },
-            subNavListUlLink: {
-                display: 'block',
-                padding: '5px 10px'
-            }
+            }       
         };
 
         var defaultConfig = {
-            imgUrl: ' aaa ',
+            imgUrl: '',
             listItemHoverClass: 'g-nav-hover',
             ceilingFixed: 'false',
             ceilingConfig: { position:'top', distance:'20'},
             // content: [
-            //     {title: '光合', link: 'javascript.void(0)', sub:[{title:'列表一'}, {title:'列表二'}], icon: ''},
-            //     {title: '关于我们', link: 'javascript.void(0)', sub: null, icon: ''},
-            //     {title: '帮助中心', link: 'javascript.void(0)', sub: null, icon: ''}
+            //     {title: '光合', link: 'javascript:void(0)', sub:[{title:'列表一'}, {title:'列表二'}], icon: ''},
+            //     {title: '关于我们', link: 'javascript:void(0)', sub: null, icon: ''},
+            //     {title: '帮助中心', link: 'javascript:void(0)', sub: null, icon: ''}
             // ]
         };
         var Nav = function(el, config){
@@ -138,7 +116,7 @@
                 if(conf.ceilingFixed == 'true'){
                     if(conf.ceilingConfig.position === 'top'){
                         $(window).on('scroll', function(){
-                            if($(el).offset().top - $(window).scrollTop() <= conf.ceilingConfig.distance ){
+                            if($(window).scrollTop() >= conf.ceilingConfig.distance ) {
                                 $(el).css(cssObj.navListContainerFixed);
                                 $(el).css('top', conf.ceilingConfig.distance + 'px');
                                 $('.sub-nav-list').css('top', $('.nav-list-li').height()); 
@@ -192,9 +170,7 @@
                 $(window).trigger('resize'); 
                 $('.nav-list-li').css(cssObj.navListLi);       
                 $('.nav-list .outer-link').css(cssObj.listItem);
-                $('.drop-icon').css(cssObj.dropIcon);  
-                $('.sub-nav-list').css(cssObj.subNavListUl);  
-                $('.inner-link').css(cssObj.subNavListUlLink);   
+                $('.sub-nav-list').css('position', 'absolute');  
                 $('.sub-nav-list').css('top', $('.nav-list-li').height()); 
                 $('.sub-nav-list').css('width', $('.sub-nav-list').closest('.nav-list-li').width());
             }

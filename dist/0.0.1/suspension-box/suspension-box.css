@@ -1,0 +1,5 @@
+.suspension-box {
+    z-index: 999999;
+    background: #fff;
+    border: 1px solid #ddd;
+}

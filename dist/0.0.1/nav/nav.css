@@ -1,0 +1,19 @@
+.drop-icon {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-top: 6px solid #0f0;    
+}
+.sub-nav-list {
+    display: none;
+    top: 0;
+    left: 0;
+    padding: 0;
+}
+.inner-link {
+    padding: 5px 10px;   
+}
+.nav-list-container {
+    min-height: 35px;
+}

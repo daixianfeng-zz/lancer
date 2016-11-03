@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>test nav</title>
+    <meta name="link-referer" content="">
+    <link rel="stylesheet" href="/dist/0.0.1/nav/nav.css">
+    <style>
+        .d{
+            background-color: #ccc;
+            height:900px;
+        }
+        #test {
+            width:100%;
+            padding:0 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestias cupiditate harum dignissimos quaerat. Iusto consequuntur natus quisquam vitae omnis ipsam dolorum praesentium labore possimus tenetur perspiciatis, quaerat excepturi voluptates asperiores.lorem  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore architecto facilis illo corporis accusamus quaerat, totam in dicta mollitia omnis! Facere, quas. Vel excepturi tenetur, quaerat. Laborum exercitationem, consequuntur minus. </div>
+    <div id="test">
+           
+    </div> 
+    <div id="test2"></div>
+    <div class="d"></div>   
+</body>
+<script type="text/javascript" charset="utf-8" src="../libs/requirejs/require.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="./map.js"></script>
+<script>
+    require(['jquery','GNav'], function($, GNav){
+        new GNav('#test', {ceilingFixed: 'true',ceilingConfig: { position:'top', distance:'20'}, content: [
+                {title: '顶部吸顶', link: 'javascript:void(0)', sub:[{title:'列表一'}, {title:'列表二'}], icon: ''},
+                {title: '关于我们', link: 'javascript:void(0)', sub: null, icon: ''},
+                {title: '帮助中心', link: 'javascript:void(0)', sub: null, icon: ''}
+            ]});  
+
+        new GNav('#test2', {ceilingFixed: 'true',ceilingConfig: { position:'bottom', distance:'20'}, content: [
+                {title: '底部', link: 'javascript:void(0)', sub:[{title:'列表一'}, {title:'列表二'}], icon: ''},
+                {title: '关于我们', link: 'javascript:void(0)', sub: null, icon: ''},
+                {title: '帮助中心', link: 'javascript:void(0)', sub: null, icon: ''}
+            ]});    
+    });
+</script>
+</html>
