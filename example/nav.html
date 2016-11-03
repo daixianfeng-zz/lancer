@@ -37,13 +37,15 @@
                 {title: '顶部吸顶', link: 'javascript:void(0)', sub:[{title:'列表一'}, {title:'列表二'}], icon: ''},
                 {title: '关于我们', link: 'javascript:void(0)', sub: null, icon: ''},
                 {title: '帮助中心', link: 'javascript:void(0)', sub: null, icon: ''}
-            ]});  
+            ]});    
+    });
 
+    require(['jquery','GNav'], function($, GNav){
         new GNav('#test2', {ceilingFixed: 'true',ceilingConfig: { position:'bottom', distance:'20'}, content: [
                 {title: '底部', link: 'javascript:void(0)', sub:[{title:'列表一'}, {title:'列表二'}], icon: ''},
                 {title: '关于我们', link: 'javascript:void(0)', sub: null, icon: ''},
                 {title: '帮助中心', link: 'javascript:void(0)', sub: null, icon: ''}
-            ]});    
+            ]});      
     });
 </script>
 </html>

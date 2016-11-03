@@ -7,12 +7,21 @@
 }
 .sub-nav-list {
     display: none;
-    top: 0;
     left: 0;
     padding: 0;
 }
+.nav-list-li {
+    list-style: none;
+}
+.outer-link {
+    padding: 8px 12px;
+    text-decoration: none;
+}
 .inner-link {
-    padding: 5px 10px;   
+    padding: 5px 10px;  
+}
+.sub-list-li {
+    list-style: none;    
 }
 .nav-list-container {
     min-height: 35px;
