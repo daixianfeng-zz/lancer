@@ -29,6 +29,7 @@ requirejs.config({
         gSuspensionBox: toolPathRoot+'suspension-box/suspension-box',
         GSwiper: toolPathRoot+'swiper/swiper',
         GAjaxValidate: toolPathRoot+'verification/ajax-validate',
+        GAccordion: toolPathRoot+'dialog/accordion',
     }
 });
 

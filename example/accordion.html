@@ -11,7 +11,7 @@
     <title>test web dialog</title>
     <meta name="link-referer" content="">
     <link rel="stylesheet" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" href="/dist/0.0.1/dialog/modal.css">
+    <link rel="stylesheet" href="/dist/0.0.1/dialog/accordion.css">
     <style>
         .modal-content {
             margin: 50px auto;
@@ -30,25 +30,32 @@
 </head>
 <body>
     <div id="result">
-        <p><button id="test-modal">模态框测试</button></p>
+        <p><button class="test-accordion">手风琴测试0</button></p>
     </div>
-    <div id="modal-register-tpl">
+    <div id="result-ab" style="height: 600px;width: 800px;margin-top: 100px;margin-left: 200px;background:#eee;position:relative;overflow-x:hidden;">
+        <p><button class="test-accordion-ab">手风琴测试10</button></p>
+    </div>
+    <div id="accordion-tpl-1" style="display:none;">
       <div class="modal-content">
         <p> <input type="text" placeholder="手机号" /></p>
         <p> <input type="password" placeholder="密码" /></p>
         <p> <input type="password" placeholder="确认密码" /></p>
         <p><button id="register-submit">下一步</button></p>
+        <p><button class="test-accordion">手风琴测试1</button></p>
+        <p><button class="test-accordion-ab">手风琴测试11</button></p>
       </div>
     </div>
-    <div id="modal-bind-tpl">
+    <div id="accordion-tpl-2" style="display:none;">
       <div class="modal-content">
         <p> <input type="text" placeholder="公司名" /></p>
         <p> <input type="password" placeholder="社会统一代码" /></p>
         <p><button id="bind-back">上一步</button></p>
         <p><button id="bind-submit">下一步</button></p>
+        <p><button class="test-accordion">手风琴测试2</button></p>
+        <p><button class="test-accordion-ab">手风琴测试12</button></p>
       </div>
     </div>
-    <div id="modal-register-success-tpl">
+    <div id="accordion-tpl-3" style="display:none;">
       <div class="modal-content">
         <p>成功</p>
       </div>
@@ -57,36 +64,31 @@
 <script type="text/javascript" charset="utf-8" src="../libs/requirejs/require.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="./map.js"></script>
 <script type="text/javascript">
-    require(['jquery','G','GModal'],function($, G, GModal){
-
-        var registerModal = {};
-        var bindModal = {};
-        var successModal = {};
-        var modalTest = function(){
-            registerModal = new GModal('#modal-register-tpl', {id: 'register'});
-            bindModal = new GModal('#modal-bind-tpl', {id: 'bind'});
-            successModal = new GModal('#modal-register-success-tpl', {id: 'register-done'});
-            $('#g-modal').on('click', '#register-submit', function(){
-                bindModal.open();
+    require(['jquery','G','GAccordion'],function($, G, GAccordion){
+        var oneAccordion = new GAccordion('#result', {
+            id: 'accordion',
+            leftWidth: 100,
+            position: 'fixed'
+        });
+        var twoAccordion = new GAccordion('#result-ab', {
+            id: 'accordion2',
+            leftWidth: 50,
+            position: 'absolute'
+        });
+        var i = 0;
+        $('body').on('click', '.test-accordion', function(){
+            i += 1;
+            oneAccordion.add({
+                id: i,
+                el: '#accordion-tpl-'+i
             });
-            $('#g-modal').on('click', '#bind-submit', function(){
-                successModal.open();
+        });
+        $('body').on('click', '.test-accordion-ab', function(){
+            i += 1;
+            twoAccordion.add({
+                id: i,
+                el: '#accordion-tpl-'+i
             });
-            $('#g-modal').on('click', '#bind-back', function(){
-                registerModal.open();
-            });
-        }
-        modalTest.toStep1 = function(){
-            registerModal.open();
-        }
-        modalTest.toStep2 = function(){
-            bindModal.open();
-        }
-
-        modalTest();
-        $('#test-modal').on('click', function(){
-            modalTest.toStep1();
-            return false;
         });
     });
 </script>
