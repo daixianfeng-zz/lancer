@@ -13,6 +13,55 @@
 	}
 	function factory($){
 		var readyEvent = [];
+		G.ddpr = function(){
+			$(window).on('resize', function(e){
+		    	var sWidth = $(window).width();
+				if(sWidth > 420){
+					$('html').css('fontSize', '112px');
+				}else if(sWidth < 320){
+					$('html').css('fontSize', '85.33px');
+				}else{
+					var sFont = sWidth / 375 * 100;
+					$('html').css('fontSize', sFont+'px');
+				}
+		    });
+		    $(window).trigger('resize');
+		    $(window).on('orientationchange', function(e){
+		    	e.preventDefault();
+		    });
+		};
+		G.getCommonParams = function(){
+			var getRenderData = function(){
+				var renderDataDocument = $('#render-data')[0].contentWindow.document;
+				var token = $(renderDataDocument).find("meta[name='_csrf']").attr('content');
+				var ajaxHeader = $(renderDataDocument).find("meta[name='_csrf_header']").attr('content');
+				var formHeader = $(renderDataDocument).find("meta[name='_csrf_parameter']").attr('content');
+				var publicKey = $(renderDataDocument).find("meta[name='_cipher_public']").attr('content');
+
+				$('head').append('<meta name="_csrf" content="'+token+'">');
+				$('head').append('<meta name="_csrf_header" content="'+ajaxHeader+'">');
+				$('head').append('<meta name="_csrf_parameter" content="'+formHeader+'">');
+				$('head').append('<meta name="_cipher_public" content="'+publicKey+'">');
+				
+				$(document).ajaxSend(function(e, xhr, options){
+					if(ajaxHeader){
+						xhr.setRequestHeader(ajaxHeader, token);
+					}
+				});
+
+				$('head').append('<meta name="_render_ready" content="ready">');
+				G.onReady();
+			}
+			var $renderData = $('<iframe id="render-data" src="/_common_params" frameborder="0" style="width:0;height:0;position:absolute;bottom:0;left:0;border:0;"></iframe>');
+		    if($renderData[0].attachEvent){
+			    $renderData[0].attachEvent("onload", function(){
+			        getRenderData();
+			    });
+			}else{
+			    $renderData[0].onload = getRenderData;
+			}
+			$(document.body).append($renderData);
+		};
 		G.onReady = function(callback){
 			if($("meta[name='_render_ready']").attr('content') === 'ready'){
 				$.each(readyEvent, function(i, v){

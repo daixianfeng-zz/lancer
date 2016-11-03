@@ -13,6 +13,16 @@
 	}
 	var modalList = {};
 	function factory($, G){
+        $.fn.extend({
+            animateCss: function (animationName, callback) {
+                var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+                $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+                    $(this).removeClass('animated ' + animationName);
+                    callback && callback();
+                });
+                return this;
+            }
+        });
 		function initModalGlobal(){
 			if($('#s-mask').length === 0){
 				$(document.body).append('<div id="s-mask"></div>');
