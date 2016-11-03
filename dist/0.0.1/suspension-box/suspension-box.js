@@ -10,17 +10,6 @@
     }
     /*
     function factory($){
-        var cssObj = {
-            outerStyle: {
-                position: 'relative'
-            },
-            boxStyle: {        
-                position: 'absolute',
-                zIndex: 999999,
-                background: '#fff',
-                border: '1px solid #ddd'
-            }
-        };
         var defaultConfig = {
             event: 'mouseenter',//mouseenter/click
             style: {'width':'50px','height':'100px'},
@@ -45,27 +34,27 @@
                 var me = this;
                 if(event == 'click') {
                     $(document).on('click', function(){
-                        $(box).css('display')=='block' && $(box).css('display','none');
+                        $(box).is(':visible') && $(box).hide();
                     });
                     $(box).on('click', function(){
-                        $(box).css('display','block');
+                        $(box).show();
                         return false; //阻止冒泡事件
                     });
                 }else if(event == 'mouseenter'){
                     $(el).on('mouseleave', function(){
-                        $(box).css('display','none');  
+                        $(box).hide();  
                         return false; 
                     });
                     $(box).on('mouseenter',function(){
-                        $(box).css('display','block');
+                        $(box).show();
                         return false;
                     });
                     $(box).on('mouseleave',function(){
-                        $(box).css('display','none');
+                        $(box).hide();
                     })
                 }
                 $(el).on(event, function(){
-                    $(box).css('display', $(box).css('display')=='none'?'block':'none');
+                    $(box).toggle();
                     me._render(el, box, conf);                 
                     return false;
                 });         
@@ -75,9 +64,10 @@
                 var offsetLeft = parseInt(conf.position.left);
                 var positionTop = $(el).offset().top + $(el).height() + offsetTop;
                 var positionLeft = $(el).offset().left + offsetLeft; 
-                $(el).css(cssObj.outerStyle);
-                $(box).css({'height':conf.style.height, 'width':conf.style.width});
-                $(box).css(cssObj.boxStyle).css('top',positionTop ).css('left',positionLeft);
+                $(el).css('position','relative');
+                $(box).css('position','absolute')
+                        .css({'height':conf.style.height, 'width':conf.style.width})
+                        .css('top',positionTop ).css('left',positionLeft);
             }
         };
 
@@ -87,19 +77,6 @@
     
     
     function factory($){
-
-        var cssObj = {
-            outerStyle: {
-                position: 'relative'
-            },
-            boxStyle: {        
-                position: 'absolute',
-                zIndex: 999999,
-                background: '#fff',
-                border: '1px solid #ddd'
-            }
-        };
-
         var SuspensionBox = function(el, box, conf){
             this.el = el;
             this.box = box;
@@ -119,32 +96,33 @@
                 this._event(el, box, conf);
             },
             _event: function(el, box, conf){
+                $(box).hide();
                 var event = conf.event;
-                var me = this;
+                var self = this;
                 if(event == 'click') {
                     $(document).on('click', function(){
-                        $(box).css('display')=='block' && $(box).css('display','none');
+                        $(box).is(':visible') && $(box).hide();
                     });
                     $(box).on('click', function(){
-                        $(box).css('display','block');
+                        $(box).show();
                         return false; //阻止冒泡事件
                     });
                 }else if(event == 'mouseenter'){
                     $(el).on('mouseleave', function(){
-                        $(box).css('display','none');  
+                        $(box).hide();  
                         return false; 
                     });
                     $(box).on('mouseenter',function(){
-                        $(box).css('display','block');
+                        $(box).show();
                         return false;
                     });
                     $(box).on('mouseleave',function(){
-                        $(box).css('display','none');
+                        $(box).hide();
                     })
                 }
                 $(el).on(event, function(){
-                    $(box).css('display', $(box).css('display')=='none'?'block':'none');
-                    me._render(el, box, conf);                 
+                    $(box).toggle();
+                    self._render(el, box, conf);                 
                     return false;
                 });         
             },
@@ -153,9 +131,10 @@
                 var offsetLeft = parseInt(conf.position.left);
                 var positionTop = $(el).offset().top + $(el).height() + offsetTop;
                 var positionLeft = $(el).offset().left + offsetLeft; 
-                $(el).css(cssObj.outerStyle);
-                $(box).css({'height':conf.style.height, 'width':conf.style.width});
-                $(box).css(cssObj.boxStyle).css('top',positionTop ).css('left',positionLeft);
+                $(el).css('position','relative');
+                $(box).css('position','absolute')
+                        .css({'height':conf.style.height, 'width':conf.style.width})
+                        .css('top',positionTop ).css('left',positionLeft);
             }
         };
         /*
