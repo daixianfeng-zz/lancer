@@ -45,17 +45,18 @@
 			init: function(accordionObj, config){
 				this.level = accordionObj.setNewLevel(this);
 				var $containerRoot = accordionObj.getContainer();
-				var el = $(config.el);
+				var $el = $(config.el);
 				var itemStr = '';
 				itemStr += '<div id="accordion-'+config.id+'" class="accordion-item">';
 				itemStr += '	<div class="accordion-left" style="background:'+config.bg+';"></div>';
 				itemStr += '	<div class="accordion-content"></div>';
 				itemStr += '</div>';
 				var $itemContainer = $(itemStr);
-				$itemContainer.find('.accordion-content').append(el.show());
+				$itemContainer.find('.accordion-content').append($el.show());
 				$itemContainer.find('.accordion-left').append(accordionObj.setLeftTips(config.leftContent));
 				$itemContainer.animateCss('slideInRight');
 				$containerRoot.append($itemContainer);
+				this.$el = $el;
 				this.$container = $itemContainer;
 				this.accordionObj = accordionObj;
 				this._setCss(accordionObj, config);
@@ -98,7 +99,11 @@
 			destroy: function(){
 				var self = this;
 				this.$container.animateCss('slideOutRight', function(){
+					self.$el.hide().appendTo($('body'));
 					self.$container.remove();
+					if(self.level === 0){
+						self.accordionObj.$container.empty().hide();
+					}
 				}).show();
 			},
 			onOpen: function(){
@@ -174,9 +179,6 @@
 						lastAccordion.destroy();
 						lastAccordion = null;
 					}
-				}
-				if(this.level.length === 0){
-					this.$container.empty().hide();
 				}
 			},
 			add: function(itemConfig){
