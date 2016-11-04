@@ -96,6 +96,9 @@
 					});
 				}
 			},
+			resize: function(){
+				this._setCss(this.accordionObj, this.config);
+			},
 			destroy: function(){
 				var self = this;
 				this.$container.animateCss('slideOutRight', function(){
@@ -146,9 +149,19 @@
 					$container.height($(el).height());
 					this.position = 'absolute';
 				}
+				this.$el = $(el);
 				this.$container = $container;
 				this.leftWidth = config.leftWidth;
 				this.level = [];
+				this._event();
+			},
+			_event: function(){
+				var self = this;
+				if(self.config.position === 'fixed'){
+					$(window).on('resize', function(){
+						self.resize();
+					});
+				}
 			},
 			getLeftWidth: function(){
 				return this.$container.find('.accordion-left').width();
@@ -181,12 +194,23 @@
 					}
 				}
 			},
+			resize: function(){
+				var $el = this.$el;
+				if(this.config.position !== 'fixed'){
+					this.$container.width($el.width());
+					this.$container.height($el.height());
+				}
+				$.each(this.level, function(i, v){
+					v.resize();
+				});
+			},
 			add: function(itemConfig){
 				var newItem = new AccordionItem(this, itemConfig);
 				if(this.level.length > 0){
 					this.$container.show();
 				}
 				newItem.onOpen();
+				this.resize();
 			},
 			setLeftTips: function(content){
 				var tips = '';
