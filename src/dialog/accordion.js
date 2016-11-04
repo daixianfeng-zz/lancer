@@ -67,7 +67,7 @@
 				var contentBg = config.bg;
 				var itemWidth = accordionObj.$container.width() - this.level * accordionObj.getLeftWidth();
 				var contentWidth = accordionObj.$container.width() - (this.level+1) * accordionObj.getLeftWidth();
-				var itemHeight = accordionObj.$container.height();
+				var itemHeight = accordionObj.$container.outerHeight();
 				this.$container.css({
 					left: leftPos,
 					width: itemWidth,
@@ -145,8 +145,8 @@
 					this.position = 'fixed';
 					accordionFixed = this;
 				}else{
-					$container.width($(el).width());
-					$container.height($(el).height());
+					$container.width($(el).outerWidth());
+					$container.height($(el).outerHeight());
 					this.position = 'absolute';
 				}
 				this.$el = $(el);
@@ -164,7 +164,7 @@
 				}
 			},
 			getLeftWidth: function(){
-				return this.$container.find('.accordion-left').width();
+				return this.$container.find('.accordion-left').outerWidth();
 			},
 			getContainer: function(){
 				return this.$container;
@@ -197,8 +197,8 @@
 			resize: function(){
 				var $el = this.$el;
 				if(this.config.position !== 'fixed'){
-					this.$container.width($el.width());
-					this.$container.height($el.height());
+					this.$container.width($el.outerWidth());
+					this.$container.height($el.outerHeight());
 				}
 				$.each(this.level, function(i, v){
 					v.resize();
