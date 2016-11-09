@@ -219,7 +219,7 @@
 				}else{
 					tips = content();
 				}
-				var $leftTips = $('<span class="accordion-tips"><i class="left-tips-top"></i>'+tips+'<i class="left-tips-bottom"></i></span>');
+				var $leftTips = $('<span class="accordion-tips"><i class="left-tips-top"></i><strong>'+tips+'</strong><i class="left-tips-bottom"></i></span>');
 				return $leftTips;
 			}
 		}

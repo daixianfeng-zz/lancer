@@ -32,8 +32,6 @@
 .accordion-item .accordion-left .accordion-tips {
 	position: relative;
 	text-align: center;
-	text-align: center;
-	word-break: break-all;
 	display: inline-block;
 	margin-top: 80px;
 	width: 60px;
@@ -41,6 +39,17 @@
 	background: green;
 	font-size: 18px;
 	color: red;
+}
+.accordion-item .accordion-left .accordion-tips strong {
+	text-align: center;
+	word-break: break-all;
+	display: inline-block;
+	width: 100%;
+	height: auto;
+	font-size: 18px;
+	color: red;
+	white-space: normal;
+	overflow: hidden;
 }
 .accordion-item .accordion-left .accordion-tips .left-tips-top {
 	position: absolute;
