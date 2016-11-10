@@ -5,6 +5,7 @@ requirejs.config({
     paths: {
         jquery: libPathRoot+'jquery/jquery-2.1.4.min',
         echarts: libPathRoot+'echarts/echarts.min',
+        iscroll: libPathRoot+'iscroll/iscroll-probe',
         G: toolPathRoot+'util/G',
         url: toolPathRoot+'util/G-url',
         gThird: toolPathRoot+'util/G-third',
