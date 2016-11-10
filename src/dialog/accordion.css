@@ -1,77 +1,77 @@
 .accordion-root {
-	z-index: 999998;
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	display: none;
+    z-index: 999998;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
 }
 .accordion-item {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .accordion-item .accordion-left {
-	background: rgba(0,0,0,0.7);
-	float: left;
-	width: 100px;
-	min-width: 80px;
-	height: 100%;
-	text-align: center;
+    background: rgba(0,0,0,0.7);
+    float: left;
+    width: 100px;
+    min-width: 80px;
+    height: 100%;
+    text-align: center;
 }
 .accordion-item .accordion-content {
-	float: left;
-	width: 100%;
-	hegiht: 100%;
-	background: #f1f1f1;
+    float: left;
+    width: 100%;
+    hegiht: 100%;
+    background: #f1f1f1;
 }
 .accordion-item .accordion-left .accordion-tips {
-	position: relative;
-	text-align: center;
-	display: inline-block;
-	margin-top: 80px;
-	width: 60px;
-	min-height: 20%;
-	background: green;
-	font-size: 18px;
-	color: red;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    margin-top: 80px;
+    width: 60px;
+    min-height: 20%;
+    background: green;
+    font-size: 18px;
+    color: red;
 }
 .accordion-item .accordion-left .accordion-tips strong {
-	text-align: center;
-	word-break: break-all;
-	display: inline-block;
-	width: 100%;
-	height: auto;
-	font-size: 18px;
-	color: red;
-	white-space: normal;
-	overflow: hidden;
+    text-align: center;
+    word-break: break-all;
+    display: inline-block;
+    width: 100%;
+    height: auto;
+    font-size: 18px;
+    color: red;
+    white-space: normal;
+    overflow: hidden;
 }
 .accordion-item .accordion-left .accordion-tips .left-tips-top {
-	position: absolute;
-	top: -60px;
-	left: 0;
-	display: inline-block;
-	width: 0;
-	height: 0;
-	border-top: 30px solid transparent;
-	border-left: 30px solid green;
-	border-bottom: 30px solid green;
-	border-right: 30px solid green;
+    position: absolute;
+    top: -60px;
+    left: 0;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 30px solid transparent;
+    border-left: 30px solid green;
+    border-bottom: 30px solid green;
+    border-right: 30px solid green;
 }
 .accordion-item .accordion-left .accordion-tips .left-tips-bottom {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	display: inline-block;
-	width: 0;
-	height: 0;
-	border-top: 30px solid green;
-	border-left: 30px solid transparent;
-	border-bottom: 30px solid transparent;
-	border-right: 30px solid transparent;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-top: 30px solid green;
+    border-left: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+    border-right: 30px solid transparent;
 }
