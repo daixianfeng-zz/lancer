@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="/dist/0.0.1/load-more/load-more.css">
+    <title>iScroll 实例：下拉刷新，滚动翻页</title>
+</head>
+<body>
+    <div id="wrapper" class="wrapper">
+        <div id="scroller">
+            <div id="pullDown">
+                <span class="pullDownIcon"></span>
+                <span class="pullDownLabel">下拉刷新...</span>
+            </div>
+            <ul id="contentList">
+                <li>产品1</li>
+                <li>产品2</li>
+                <li>产品3</li>
+                <li>产品5</li>
+                <li>产品7</li>
+                <li>产品7</li>
+                <li>产品7</li>
+                <li>产品7</li>
+                <li>产品7</li>
+                <li>产品7</li>
+                <li>产品7</li>
+                <li>产品7</li>
+                <li>产品7</li>
+                <li>产品7</li>
+                <li>产品7</li>
+                <li>产品7</li>
+                <li>产品0</li>
+                <li>产品8</li>
+                <li>产品8</li>
+            </ul>
+            <div id="pullUp">
+                <span class="pullUpIcon"></span>
+                <span class="pullUpLabel">上拉加载更多...</span>
+            </div>
+        </div>    
+    </div>
+</body>
+<script type="text/javascript" charset="utf-8" src="../libs/requirejs/require.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="./map.js"></script>
+<script>
+    require(['jquery', 'GLoadMore'], function($, GLoadMore){
+        new GLoadMore('#wrapper'); 
+    });
+</script>
+</html>
