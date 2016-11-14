@@ -11,44 +11,75 @@
 </head>
 <body>
     <div id="wrapper" class="wrapper">
-        <div id="scroller">
-            <div id="pullDown">
-                <span class="pullDownIcon"></span>
-                <span class="pullDownLabel">下拉刷新...</span>
-            </div>
-            <ul id="contentList">
-                <li>产品1</li>
-                <li>产品2</li>
-                <li>产品3</li>
-                <li>产品5</li>
-                <li>产品7</li>
-                <li>产品7</li>
-                <li>产品7</li>
-                <li>产品7</li>
-                <li>产品7</li>
-                <li>产品7</li>
-                <li>产品7</li>
-                <li>产品7</li>
-                <li>产品7</li>
-                <li>产品7</li>
-                <li>产品7</li>
-                <li>产品7</li>
-                <li>产品0</li>
-                <li>产品8</li>
-                <li>产品8</li>
-            </ul>
-            <div id="pullUp">
-                <span class="pullUpIcon"></span>
-                <span class="pullUpLabel">上拉加载更多...</span>
-            </div>
-        </div>    
+        
     </div>
 </body>
 <script type="text/javascript" charset="utf-8" src="../libs/requirejs/require.min.js"></script>
 <script type="text/javascript" charset="utf-8" src="./map.js"></script>
 <script>
     require(['jquery', 'GLoadMore'], function($, GLoadMore){
-        new GLoadMore('#wrapper'); 
+        new GLoadMore('#wrapper', {
+            getInitData: function(el, callback) {
+                $.ajax({
+                    url: '/example/json/load_morefirst.json',
+                    data: '',
+                    dataType: 'json',
+                    type: 'get',
+                    success: function(result) {
+                        var innerContent = '';
+                        if (result.data.dataList) {
+                            $.each(result.data.dataList, function(index, value) {
+                                innerContent += '<li>' + value + '</li>';
+                            });
+                            innerContent = '<ul>' + innerContent + '</ul>';
+                        }
+                        el.html(innerContent);
+                        if(callback) { callback(); } 
+                    }
+                });
+            },
+            getPullDownData: function(el, callback){
+                setTimeout(function(){
+                    $.ajax({
+                        url: '/example/json/load_more.json',
+                        data: '',
+                        dataType: 'json',
+                        type: 'get',
+                        success: function(result) {
+                            var info = {};
+                            var copy = '';
+                            if (G.apiError(result, info)) {
+                                $.each(result.data.dataList, function(index, value) {
+                                    copy += '<li>' + value + '</li>'
+                                });
+                                $(el).find('ul').prepend(copy);
+                                if(callback) { callback(); }
+                            }
+                        }
+                    });
+                },1000);
+                
+            },
+            getPullUpData: function(el, page, perpage, callback) { //上拉加载更多
+                $.ajax({
+                    url: '/example/json/load_more.json',
+                    data: {'page':page, 'perpage':perpage},
+                    dataType: 'json',
+                    type: 'get',
+                    success: function(result) {
+                        var info = {};
+                        var copy = '';
+                        if (G.apiError(result, info)) {
+                            $.each(result.data.dataList, function(index, value) {
+                                copy += '<li>' + value + '</li>'
+                            });
+                            $(el).find('ul').append(copy);
+                            if(callback) { callback(); }
+                        }
+                    }
+                });
+            }
+        }); 
     });
 </script>
 </html>
