@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+
+    <title>test pwd-keyboard</title>
+    <meta name="link-referer" content="">
+    <link rel="stylesheet" href="/dist/0.0.1/input/password.css">
+    <link rel="stylesheet" href="/dist/0.0.1/popup/keyboard.css">
+</head>
+<body>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <p>1234567890</p>
+    <div id="pwd-area">
+        <span class="g-pwd-item"></span>
+        <span class="g-pwd-item"></span>
+        <span class="g-pwd-item"></span>
+        <span class="g-pwd-item"></span>
+        <span class="g-pwd-item"></span>
+        <span class="g-pwd-item"></span>
+    </div>
+    <div>
+        <button id="close">关闭</button>
+    </div>
+    <div id="keyboard-area" style="display: none;">
+        
+    </div>   
+</body>
+<script type="text/javascript" charset="utf-8" src="../libs/requirejs/require.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="./map.js"></script>
+<script>
+    require(['jquery','GPassword','GKeyboard'], function($, GPassword, GKeyboard){
+        var pwd = new GPassword('#pwd-area');
+        var keyboard = new GKeyboard('#keyboard-area', {
+            random: true,
+            onClose: function(){
+                pwd.unFocus();
+            },
+            onOpen: function(){
+                $(window).scrollTop($('#pwd-area').offset()['top']);
+                pwd.focus();
+            },
+            output: function(num){
+                pwd.pwdInput(num);
+            },
+            back: function(){
+                pwd.pwdBack();
+            }
+        });
+        $('#close').on('click', function(){
+            keyboard.close();
+        });
+        $('#pwd-area').on('click', function(){
+            keyboard.open();
+        });
+    });
+    
+</script>
+</html>

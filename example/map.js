@@ -31,6 +31,8 @@ requirejs.config({
         GSwiper: toolPathRoot+'swiper/swiper',
         GAjaxValidate: toolPathRoot+'verification/ajax-validate',
         GAccordion: toolPathRoot+'dialog/accordion',
+        GPassword: toolPathRoot+'input/password',
+        GKeyboard: toolPathRoot+'popup/keyboard',
     }
 });
 
