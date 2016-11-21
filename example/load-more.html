@@ -62,7 +62,7 @@
             },
             getPullUpData: function(el, page, perpage, callback) { //上拉加载更多
                 $.ajax({
-                    url: '/example/json/load_more.json',
+                    url: '../example/json/load_more.json',
                     data: {'page':page, 'perpage':perpage},
                     dataType: 'json',
                     type: 'get',
