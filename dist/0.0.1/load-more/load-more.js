@@ -1,5 +1,4 @@
-;
-(function() {
+;(function() {
     if (typeof define === 'function' && define.amd) {
         define('GLoadMore', ['require', 'jquery', 'G', 'iscroll'], function(require) {
             return factory(require('jquery'), require('G'), require('iscroll'));
