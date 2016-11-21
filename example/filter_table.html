@@ -53,7 +53,7 @@
             ],
             getData: function(conditions, callback){
                 $.ajax({
-                    url: './json/filter_table.json',
+                    url: '../example/json/filter_table.json',
                     dataType: 'json',
                     data: conditions,
                     success: function(result){
@@ -61,7 +61,7 @@
                     } 
                 });
             }
-        })
+        });
     });
 </script>
 </html>
