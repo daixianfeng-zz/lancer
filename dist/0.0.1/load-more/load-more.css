@@ -107,7 +107,7 @@ body {
     width: 100%;
 }
 #pullDown {
-    top: -40px;
+    top: -45px;
     left: 0;
     z-index: 9999999;
 }
