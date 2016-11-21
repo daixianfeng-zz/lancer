@@ -1,5 +1,5 @@
-var libPathRoot = '/libs/';
-var toolPathRoot = '/dist/0.0.1/';
+var libPathRoot = 'https://daixianfeng.github.io/lancer/libs/';
+var toolPathRoot = 'https://daixianfeng.github.io/lancer/dist/0.0.1/';
 requirejs.config({
     baseUrl: '',
     paths: {
