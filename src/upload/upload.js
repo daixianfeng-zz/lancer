@@ -149,9 +149,15 @@
             },
             pushFile: function(file){
                 var self = this;
+                file.pushFile(this.resultCanvas);
                 this.resultCanvas.toBlob(function (blob) {
-                    var curTimestamp = +new Date();
-                    var tmpFile = new File([blob], 'img'+curTimestamp+'.png');
+                    var curTime = +new Date();
+                    // var tmpFile = new File([blob], 'img'+curTimestamp+'.png');
+                    var tmpFile = blob;
+                    tmpFile.name = 'img'+(+curTime)+'.png';
+                    tmpFile.lastModified = +curTime;
+                    tmpFile.lastModifiedDate = curTime;
+                    tmpFile.constructor = File;
                     file.pushFile(tmpFile);
                 });
             },
