@@ -6,7 +6,7 @@
 			return G;
 		} );
 	}else if ( typeof module === "object" && typeof module.exports === "object" ) {
-		factory(require('jquery'))
+		factory(require('jquery'));
 		module.exports = G;
 	}else{
 		factory(window.jQuery);
@@ -51,7 +51,7 @@
 
 				$('head').append('<meta name="_render_ready" content="ready">');
 				G.onReady();
-			}
+			};
 			var $renderData = $('<iframe id="render-data" src="/_common_params" frameborder="0" style="width:0;height:0;position:absolute;bottom:0;left:0;border:0;"></iframe>');
 		    if($renderData[0].attachEvent){
 			    $renderData[0].attachEvent("onload", function(){
@@ -65,9 +65,9 @@
 		G.onReady = function(callback){
 			if($("meta[name='_render_ready']").attr('content') === 'ready'){
 				$.each(readyEvent, function(i, v){
-					v && v();
+					if(v){ v(); }
 				});
-				callback && callback();
+				if(callback){ callback(); }
 				readyEvent = [];
 			}else{
 				readyEvent.push(callback);
@@ -82,9 +82,9 @@
 				var floatArea = moneyNumber.split('.')[1];
 				money = ''; 
 				for (var i = 0; i < intArea.length; i++) { 
-					money += intArea[i] + ((i + 1) % 3 == 0 && (i + 1) != intArea.length ? ',' : ''); 
+					money += intArea[i] + ((i + 1) % 3 === 0 && (i + 1) !== intArea.length ? ',' : ''); 
 				}
-				var floatArea = floatArea ? '.' + floatArea : '';
+				floatArea = floatArea ? '.' + floatArea : '';
 				return money.split('').reverse().join('') + floatArea;
 			}else if(typeof number === 'undefined'){
 				return '';
@@ -109,7 +109,7 @@
 			}else{
 				return money;
 			}
-		}
+		};
 
 		G.moneyAdd = function(moneyArr){
 			var result = 0;
@@ -127,12 +127,12 @@
 		};
 
 		G.moneyMulti = function(money, multi){
-			var multi = +multi === +multi ? +multi : 1;
+			multi = +multi === +multi ? +multi : 1;
 			return G.numberToMoney(G.moneyToNumber(money) * multi);
 		};
 
 		G.moneyAve = function(money, ave){
-			var ave = +ave === +ave ? +ave : 1;
+			ave = +ave === +ave ? +ave : 1;
 			return G.numberToMoney(G.moneyToNumber(money) / ave);
 		};
 
@@ -185,14 +185,14 @@
 		};
 
 		G.dateFormat = function(date, reg){
-			var date = date ? new Date(date) : new Date();
+			date = date ? new Date(date) : new Date();
 			var fullYear = date.getFullYear();
 			var fullMonth = ('0' + (date.getMonth() + 1)).substr(-2);
 			var fullDate = ('0' + date.getDate()).substr(-2);
 			return fullYear + '-' + fullMonth + '-' + fullDate;
 		};
 		G.timeFormat = function(time, reg){
-			var time = time ? new Date(time) : new Date();
+			time = time ? new Date(time) : new Date();
 			var fullHour = ('0' + time.getHours()).substr(-2);
 			var fullMinute = ('0' + time.getMinutes()).substr(-2);
 			var fullSecond = ('0' + time.getSeconds()).substr(-2);
@@ -291,7 +291,7 @@
 				}else{
 					doData[doKey] = value;
 				}
-			}
+			};
 			window.fmData = fmData;
 		})();
 

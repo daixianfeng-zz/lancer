@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="../libs/cropper/cropper.css">
+    <title>上传文件</title>
+    <style>
+        #file-area {
+            width: 900px;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div id="file-area" class="wrapper">
+        
+    </div>
+    <div id="file-cut">
+        
+    </div>
+    <div>
+        <button id="cut-image">确认裁剪</button>
+        <button id="upload">确认上传</button>
+    </div>
+    <div id="file-choose">
+        <div class="js-fileapi-wrapper upload-btn">
+            <div class="upload-btn__txt">choose file</div>
+            <input type="file" id="choose-btn" name="myfiles" multiple>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" charset="utf-8" src="../libs/requirejs/require.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="./map.js"></script>
+<script>
+    require(['jquery', 'gUpload'], function($, GUpload){
+        var file = new gUpload.GFile('#choose-btn', {
+            container: '#file-area',
+            uploadUrl: '../example/json/upload.json',
+            fileKey: 'myfile',
+            getUploadData: function(){
+                return {
+                    type: 'images'
+                };
+            },
+            customCropper: function(){},
+            // cropArgs: { width: 900, height: 600 },
+            cropArgs: '',
+            autoUpload: false,
+            afterLoad: function(el){
+                var cropper = new gUpload.GCut(el,{
+                    resultContainer: '#file-cut',
+                    uploadUrl: '../example/json/upload2.json',
+                    fileKey: 'myfile2',
+                });
+                $('#cut-image').on('click', function(){
+                    cropper.crop();
+                    cropper.pushFile(file);
+                });
+                $('#upload').on('click', function(){
+                    cropper.upload(file);
+                });
+            }
+        });
+        
+        
+    });
+</script>
+</html>
