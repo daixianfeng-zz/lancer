@@ -6,6 +6,8 @@ requirejs.config({
         jquery: libPathRoot+'jquery/jquery-2.1.4.min',
         echarts: libPathRoot+'echarts/echarts.min',
         iscroll: libPathRoot+'iscroll/iscroll-probe',
+        FileAPI: libPathRoot+'fileapi/FileAPI',
+        cropper: libPathRoot+'cropper/cropper',
         G: toolPathRoot+'util/G',
         url: toolPathRoot+'util/G-url',
         gThird: toolPathRoot+'util/G-third',
@@ -33,6 +35,7 @@ requirejs.config({
         GAccordion: toolPathRoot+'dialog/accordion',
         GPassword: toolPathRoot+'input/password',
         GKeyboard: toolPathRoot+'popup/keyboard',
+        gUpload: toolPathRoot+'upload/upload',
     }
 });
 

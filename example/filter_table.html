@@ -10,7 +10,7 @@
 
     <title>test filter table</title>
     <meta name="link-referer" content="">
-    <link rel="stylesheet" href="/dist/0.0.1/dialog/dialog-web.css">
+    <link rel="stylesheet" href="../dist/0.0.1/dialog/dialog-web.css">
 </head>
 <body>
     <div id="filter-content">
@@ -53,7 +53,7 @@
             ],
             getData: function(conditions, callback){
                 $.ajax({
-                    url: './json/filter_table.json',
+                    url: '../example/json/filter_table.json',
                     dataType: 'json',
                     data: conditions,
                     success: function(result){
@@ -61,7 +61,7 @@
                     } 
                 });
             }
-        })
+        });
     });
 </script>
 </html>

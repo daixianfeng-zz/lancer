@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <link rel="stylesheet" href="/dist/0.0.1/load-more/load-more.css">
+    <link rel="stylesheet" href="../dist/0.0.1/load-more/load-more.css">
     <title>iScroll 实例：下拉刷新，滚动翻页</title>
 </head>
 <body>
@@ -21,7 +21,7 @@
         new GLoadMore('#wrapper', {
             getInitData: function(el, callback) {
                 $.ajax({
-                    url: '/example/json/load_morefirst.json',
+                    url: '../example/json/load_morefirst.json',
                     data: '',
                     dataType: 'json',
                     type: 'get',
@@ -41,7 +41,7 @@
             getPullDownData: function(el, callback){
                 setTimeout(function(){
                     $.ajax({
-                        url: '/example/json/load_more.json',
+                        url: '../example/json/load_more.json',
                         data: '',
                         dataType: 'json',
                         type: 'get',
@@ -50,7 +50,7 @@
                             var copy = '';
                             if (G.apiError(result, info)) {
                                 $.each(result.data.dataList, function(index, value) {
-                                    copy += '<li>' + value + '</li>'
+                                    copy += '<li>' + value + '</li>';
                                 });
                                 $(el).find('ul').prepend(copy);
                                 if(callback) { callback(); }
@@ -62,7 +62,7 @@
             },
             getPullUpData: function(el, page, perpage, callback) { //上拉加载更多
                 $.ajax({
-                    url: '/example/json/load_more.json',
+                    url: '../example/json/load_more.json',
                     data: {'page':page, 'perpage':perpage},
                     dataType: 'json',
                     type: 'get',
@@ -71,7 +71,7 @@
                         var copy = '';
                         if (G.apiError(result, info)) {
                             $.each(result.data.dataList, function(index, value) {
-                                copy += '<li>' + value + '</li>'
+                                copy += '<li>' + value + '</li>';
                             });
                             $(el).find('ul').append(copy);
                             if(callback) { callback(); }
