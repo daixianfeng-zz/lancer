@@ -13,6 +13,10 @@
             width: 900px;
             height: 600px;
         }
+        .cut-area {
+            width: 450px;
+            height: 300px;
+        }
     </style>
 </head>
 <body>
@@ -37,35 +41,48 @@
 <script type="text/javascript" charset="utf-8" src="./map.js"></script>
 <script>
     require(['jquery', 'gUpload'], function($, GUpload){
-        var file = new gUpload.GFile('#choose-btn', {
+        var croppers = [];
+        var gFile = new gUpload.GFile('#choose-btn', {
             container: '#file-area',
             uploadUrl: '../example/json/upload.json',
             fileKey: 'myfile',
+            typeReg: /^image/,
             getUploadData: function(){
                 return {
                     type: 'images'
                 };
             },
-            customCropper: function(){},
-            // cropArgs: { width: 900, height: 600 },
-            cropArgs: '',
+            onReset: function(){
+                croppers = [];
+                $('#file-area').empty();
+                $('#file-cut').empty();
+            },
+            cropArgs: [200,100],
+            resizeArgs: [360,180],
+            preview: [450,300],
+            rotateArgs: [180],
             autoUpload: false,
             afterLoad: function(el){
+                var $cutArea = $('<div></div>').addClass('cut-area').appendTo($('#file-area'));
+                $(el).appendTo($cutArea);
                 var cropper = new gUpload.GCut(el,{
                     resultContainer: '#file-cut',
-                    uploadUrl: '../example/json/upload2.json',
-                    fileKey: 'myfile2',
+                    copperConfig: {
+                        aspectRatio: 16 / 9,
+                    }
                 });
-                $('#cut-image').on('click', function(){
-                    cropper.crop();
-                    cropper.pushFile(file);
-                });
-                $('#upload').on('click', function(){
-                    cropper.upload(file);
-                });
+                croppers.push(cropper);
             }
         });
-        
+        $('#cut-image').on('click', function(){
+            $.each(croppers, function(i, v){
+                v.crop();
+                v.pushFile(gFile);
+            });
+        });
+        $('#upload').on('click', function(){
+            gFile.upload();
+        });
         
     });
 </script>
