@@ -26,10 +26,13 @@
         var defaultFileConfig = {
             // chunkSize: 5 * FileAPI.MB,
             getUploadData: function(){ return {}; },
-            onProgress: function(eFile){ console.log(eFile); },
-            onComplete: function(err, xhr){ if(err){ console.log(err); }else{ console.log('upload complete'); } },
+            onProgress: function(eFile){ },
+            onComplete: function(err, xhr){ if(err){ console.log(err); } },
+            onReset: function(){ },
+            onTips: function(msg){ console.log(msg); },
             fileKey: 'files',
             typeReg: /^image/,
+            maxSize: 2 * FileAPI.MB,
             autoUpload: true,
             afterLoad: function(){},
         };
@@ -49,24 +52,31 @@
                     var files = FileAPI.getFiles(e);
                     FileAPI.filterFiles(files, function(file, info){
                         if(self.config.typeReg.test(file.type)){
+                            if(file.size > self.config.maxSize){
+                                self.config.onTips('ERROR_MAX_SIZE');
+                                return false;
+                            }
                             return true;
                         }
+                        self.config.onTips('ERROR_FILE_TYPE');
                         return false;
                     }, function(files, rejected){
-                        self.clearFile();
-                        if(files.length){
-                            FileAPI.each(files, function(file){
-                                var fileImg = FileAPI.Image(file);
-                                self._crop(fileImg).get(function(err, imgCV){
-                                    var $img = $('<img />');
-                                    $img[0].src = imgCV.toDataURL("image/png");
-                                    if(self.config.container){ $(self.config.container).append($img); }
-                                    if(!self.config.autoUpload){
-                                        self.config.afterLoad($img);
-                                    }
-                                });
-                            });
+                        if(files.length === 0){
+                            return ;
                         }
+                        self.clearFile();
+                        self.config.onReset();
+                        FileAPI.each(files, function(file){
+                            var fileImg = FileAPI.Image(file);
+                            self._crop(fileImg).get(function(err, imgCV){
+                                var $img = $('<img />');
+                                $img[0].src = imgCV.toDataURL("image/png");
+                                if(self.config.container){ $(self.config.container).append($img); }
+                                if(!self.config.autoUpload){
+                                    self.config.afterLoad($img);
+                                }
+                            });
+                        });
                         if(self.config.autoUpload){
                             self.pushFile(files);
                             self.upload();
@@ -101,17 +111,36 @@
                 });
             },
             _crop: function(fileImg){
+                var args = [];
                 if(this.config.resizeArgs){
-                    return fileImg.resize(this.config.resizeArgs);
+                    args = this.config.resizeArgs;
+                    if(args.length === 3){
+                        fileImg.resize(args[0],args[1],args[2]);
+                    }else if(args.length === 2){
+                        fileImg.resize(args[0],args[1]);
+                    }
                 }
                 if(this.config.cropArgs){
-                    return fileImg.crop(this.config.cropArgs);
+                    args = this.config.cropArgs;
+                    if(args.length === 4){
+                        fileImg.crop(args[0],args[1],args[2],args[3]);
+                    }else if(args.length === 2){
+                        fileImg.crop(args[0],args[1]);
+                    }
                 }
                 if(this.config.previewArgs){
-                    return fileImg.preview(this.config.previewArgs);
+                    args = this.config.previewArgs;
+                    if(args.length === 2){
+                        fileImg.preview(args[0],args[1]);
+                    }else if(args.length === 1){
+                        fileImg.preview(args[0]);
+                    }
                 }
                 if(this.config.rotateArgs){
-                    return fileImg.rotate(this.config.rotateArgs);
+                    args = this.config.rotateArgs;
+                    if(args.length === 1){
+                        fileImg.rotate(args[0]);
+                    }
                 }
                 return fileImg;
             }
@@ -126,16 +155,14 @@
         };
         GCut.prototype = {
             init: function(){
-                this.$el.cropper({
-                    aspectRatio: 16 / 9,
-                    crop: function(e) {}
-                });
+                var cropperConfig = this.config.cropperConfig;
+                this.$el.cropper(cropperConfig);
             },
             crop: function(){
                 var $cutImg = this.$el.cropper('getCroppedCanvas');
                 this.resultCanvas = $cutImg;
                 this.resultImg = '';
-                $(this.config.resultContainer).append($cutImg);
+                if(this.config.resultContainer){ $(this.config.resultContainer).append($cutImg); }
                 return $cutImg;
             },
             canvasToImage: function(){
@@ -147,9 +174,9 @@
                 this.resultImg = image;
                 return image;
             },
-            pushFile: function(file){
+            pushFile: function(gFile){
                 var self = this;
-                file.pushFile(this.resultCanvas);
+                gFile.pushFile(this.resultCanvas);
                 this.resultCanvas.toBlob(function (blob) {
                     var curTime = +new Date();
                     // var tmpFile = new File([blob], 'img'+curTimestamp+'.png');
@@ -158,11 +185,11 @@
                     tmpFile.lastModified = +curTime;
                     tmpFile.lastModifiedDate = curTime;
                     tmpFile.constructor = File;
-                    file.pushFile(tmpFile);
+                    gFile.pushFile(tmpFile);
                 });
             },
-            upload: function(file){
-                file.upload();
+            upload: function(gFile){
+                gFile.upload();
             }
         };
 
