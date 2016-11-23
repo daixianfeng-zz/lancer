@@ -193,7 +193,8 @@
             }
         };
 
-        window.gUpload = {
+        
+        window.gUpload = gUpload = {
             GFile: GFile,
             GCut: GCut
         };
