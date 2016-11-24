@@ -40,6 +40,7 @@
             init: function(el, conf){
                 this._render();
                 this._renderStyle();
+                this._rePosition();
             },
             _renderStyle: function(){
                 var conf = this.conf;
@@ -58,6 +59,13 @@
                 }
                 $(el).find('[class^=support-block]').width($(el).find('.nav-list').width()+parseInt(conf.fixedNav.distance));
                 $(el).find('[class^=support-block]').height($(el).find('.nav-list').height());
+            },
+            _rePosition: function(){
+                var el = this.el;
+                $(window).on('resize', function(){
+                    $(el).find('.nav-list').css('position', $(el).find('.nav-list').height()>$(window).height() ? 'absolute':'fixed');   
+                 });
+                 $(window).trigger('resize');
             }
         };  
         return NavVer;
