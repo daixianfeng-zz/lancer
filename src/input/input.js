@@ -18,6 +18,8 @@
 				parentSelector: '.form-row',
 				clearSelector: '.txt-clear',
 				pwdToggleSelector: '.txt-toggle',
+				titleUp: false,
+				titleSelector: '.row-title',
 				maxLength: 30
 			}, opt);
 			this.each(function(i, el){
@@ -25,6 +27,7 @@
 				var $row = $(self).closest(config.parentSelector);
 				var $clearBtn = $row.find(config.clearSelector);
 				var $pwdToggleBtn = $row.find(config.pwdToggleSelector);
+				var $title = $row.find(config.titleSelector);
 				$(self).on('keyup', function(e){
 					if($(self).val().length > 0){
 						$clearBtn.show();
@@ -34,6 +37,11 @@
 					if($(self).val().length > config.maxLength){
 						var cutText = $(self).val().substr(0, config.maxLength);
 						$(self).val(cutText);
+					}
+					if(config.titleUp && $(self).val().length > 0 && $title.is(':hidden')){
+						$title.show();
+					}else if(config.titleUp && $(self).val().length === 0 && $title.is(':visible')){
+						$title.hide();
 					}
 				});
 				$clearBtn.on('click', function(){
@@ -55,7 +63,7 @@
 				});
 			});
 			this.trigger('keyup');
-		}
+		};
 		var onMoneyInput = function(jInput, checkFn, inputFn){
 			jInput.on('keydown', function(e){
 				// not main-num && small-num && del && back && arrow
