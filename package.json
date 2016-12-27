@@ -16,7 +16,9 @@
     "type": "git",
     "url": "https://github.com/daixianfeng/lancer.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "gulp-pug": "^3.2.0"
+  },
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",

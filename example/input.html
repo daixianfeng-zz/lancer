@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="font-size: 100px;">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+
+    <title>test web dialog</title>
+    <meta name="link-referer" content="">
+    <style>
+        * {
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+        *:before, *:after {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        button,
+        input,
+        select,
+        textarea {
+              margin: 0;
+            padding: 0;
+          border: 0;
+        }
+        body{
+            font-size: 0.14rem;
+        }
+        #result {
+          margin: 0 auto;
+          padding-top: 0.1rem;
+          width: 80%;
+        }
+        #result .form-row {
+          position: relative;
+          width: 100%;
+          height: 0.36rem;
+          margin-top: 0.2rem;
+          padding-top: 0.08rem;
+          padding-bottom: 0.08rem;
+        }
+        #result .form-row input[type="text"],
+        #result .form-row input[type="password"] {
+          -webkit-appearance: none;
+        }
+        #result .form-row input::-webkit-input-placeholder {
+          color: #999999;
+        }
+        #result .form-row input:-moz-placeholder {
+          color: #999999;
+        }
+        #result .form-row input::-moz-placeholder {
+          color: #999999;
+        }
+        #result .form-row input:-ms-input-placeholder {
+          color: #999999;
+        }
+        .form-row input {
+          display: inline-block;
+          max-width: 75%;
+          height: 0.22rem;
+          line-height: 0.22rem;
+          font-size: 0.14rem;
+          color: #353535;
+          background: rgba(255, 255, 255, 0);
+        }
+        .form-row input:focus {
+          outline: none;
+        }
+        .form-row .txt-clear {
+          float: right;
+          display: inline-block;
+          margin-right: 0.12rem;
+          width: 0.22rem;
+          height: 0.22rem;
+          background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Nzg4NkUyRDgwNTEyMTFFNjgxQjlDQTczQTZFODZFODAiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Nzg4NkUyRDcwNTEyMTFFNjgxQjlDQTczQTZFODZFODAiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QzQwMkExRDEwMTFGMTFFNjk1NTU5MzlBOEMxRjNBOEUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QzQwMkExRDIwMTFGMTFFNjk1NTU5MzlBOEMxRjNBOEUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7eh8JAAAACH0lEQVR42qyWTUsCURSG74xRLmoRaK2lwIXrgr6kNsUYgStXRUJ/on5B/YgKoa27aoYIKjJSpJZCVO4LAxcFUdDHe+CMTDb3zodz4AHRe8/jzJw752imaQqP0MAcWAYzYBwM829t8AiuwRGoGIbxo0ymEOqgCLZY4idIvg1KEH/LkrpFCtTAXgCZ4LW0p2ZZVsqvcB7UwYQIH7S3DmnWS7gITkBC9B6U4xTSJZkwDcqgX0QXlKsMabpbGAMHYEhEH4OUG9KYU7iueGav4MVHYlrzpnimRVuocem7BSXIcSG1FLIWrzEU0k1cpUbCrKL03/lwN8CCRErfLeDcNXjtu+LIZHW+AlkkwRnISKQdGf59htcmFflyJJz2eDYjEqmbbMQj1xS92p7wYdRHUbRY1mC5cHz2I6N47nO8iL2CbtW5QyoCyiiG9QjOmRZksc6VJULc0oxH9bpFm4QPIWTnTIaPg1/pPQmrIWRJ+5lShQaQVkl4HEL2p5ACSE0SXnKndos4V7Gb7J+U18YV00CFjgXNIDtg12URdQ+aQT48eiRJL8CAouPs0NhhH4sSuJEsHPLZkBMK2S07Ou3pC6wp3vS9BOVcxdV9dXf8O1AAnxHKKFcBsjvZTGOBfERXSjnykFleU5vFHfq2BxntneiWqeZSugWTYAM0A4iavGfSeRud0afYTJPzPlfXLFjh3jnWNeo3edQ/BFeyiduOXwEGAGQEsiKtz9pyAAAAAElFTkSuQmCC') 50% 50% no-repeat;
+          background-size: 0.14rem 0.14rem;
+        }
+        .form-row .txt-toggle.txt-hide {
+          float: right;
+          display: inline-block;
+          margin-right: 0.12rem;
+          width: 0.22rem;
+          height: 0.22rem;
+          background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NTE4QTc0RjUwNTEyMTFFNjgwQzBEMzZERjE2MDQwQjQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NTE4QTc0RjQwNTEyMTFFNjgwQzBEMzZERjE2MDQwQjQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MjlCQkRBRkYwMTIwMTFFNjhGQkJFRkFBOUM5NEFFM0QiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MjlCQkRCMDAwMTIwMTFFNjhGQkJFRkFBOUM5NEFFM0QiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz43uy5tAAACMElEQVR42uyYyytEURzH5w4meWQzVmykZCELshEWSpo8yqNQ1vgPFGVDzFIeGQsWxFiMV2rGQlgoCyFZeGdjZyGPslCu72/63rpdM9PkmmkW59Sne+/Muef3Ob/zuHdG03XdkYrF6UjRosSUmBJTYkosQSU9FAoV43gOcsEAmE+mgMfjCR/h0cfY76BCMvYA+lhvCrQmOzuQkpjTvOyH7L0xlGvAC1zALx1JolQTY0psL6T81jk2BGZBFtgW8yR4SYxNxpynw6/JL+8/q+AbZAAfe+JOgJCbsXyMJbEDyJYeSawIbPGzEHgD3eCKi8L1D0IutiVt9jCGxNREDMNaahXL4/Dlg13QAirBHns3x0UyCAr+IFTAex/YlpttS4x2sE6HHciJg0MLBoNptG4Gl6AWvJoa7QAjoJzXMtQnYB+cglvwBD74fQ4oBCUMXA+qTEm4AKOUCW8XkJE5dsh60q5HxMZwMgyeQTW4j9BjjfOty+ZQboBOzinrPiadOWanJqUXC9xgO6JIGUNex/MGbicTknpwDV5MdeX8ht95Wde4t0Y29SgbrWS9DZyBGcmYkZFYv0oaOffuOESRim7KbqQi06SMG/iONWOmfU2T1em0NBqt9PK4ZGMYly1tRXtE6fE+xHOYYrlhxYaYsUe2cgXafrsQqWxwBB5tiMkcOgCZXACx3y7iaDAAviwT/K9lHCzyMWRb7JMP+f8o+/FW1NRfBEpMiSkxJabEUqP8CDAAhCeQssHmsRkAAAAASUVORK5CYII=') 50% 50% no-repeat;
+          background-size: 0.19rem 0.19rem;
+        }
+        .form-row .txt-toggle.txt-show {
+          float: right;
+          display: inline-block;
+          margin-right: 0.12rem;
+          width: 0.22rem;
+          height: 0.22rem;
+          background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAmCAYAAACoPemuAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMDY3IDc5LjE1Nzc0NywgMjAxNS8wMy8zMC0yMzo0MDo0MiAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MjVCRjdEMEUwNTEyMTFFNkFDRTE5NUY3NTI2MkFEMkQiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MjVCRjdEMEQwNTEyMTFFNkFDRTE5NUY3NTI2MkFEMkQiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKFdpbmRvd3MpIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NEMxRTY0MzMwMTIwMTFFNkEzRERGOTU0NTIzNjI5QkYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NEMxRTY0MzQwMTIwMTFFNkEzRERGOTU0NTIzNjI5QkYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz66t2igAAAC+ElEQVR42uyYS0hVURSGvZY9rZSEbCgGmpPeFM16EN3oNUghygZhpUVZQhHZ0zKkQWVRWVKDbFBaDXpcI8yGBfacSIUOe4FlIVlkaf+C78blcs8952aCg7Pg4xzP3nftf6+99t4LA319fUmD0ZKTBqn5wnxhvjBfmEcb2tjYmOhvRoh5YpaYJnLFBJFOe6f4KF6J56JFPBQ/YjkLBoOxhXkUExCLRaFYKsbE6ZsOJngl37rEHVEn7gnX68aLsFXikMjj717xSDSLZ0TmPZEKC5uIsOlivpgtVkOrOCCu/6uwbFHLspm9FTXiIkKcrBNMwE2+ZYoiUcwEG1jeDaI9keTPFy8Q1SG2iCxxxEWUk33gt1n46sD3S+V4gRdhlksHxTWRyswmi7Oix2HQZSxrFzSTh7GsB1+5+B4trkpchQjEE3ac9TcHJaKA2TmZReEWs08Fe79Nm5N9wncxY+0zwZHiIoVViO2imyjUuCyPRaVc/BSlYjyU8q0cP/HsPH26EXk0WtgaVP8mv+57yJsynrvEKfEZ7H0/bTvcnOgcs7FWMJnditrasLDsiOhsFSGPCT2TZ12MttqoPm7imtgUZuckblIyCT9QlojvlOjkbyPRzU6LJR4dPeFZGKOtiGeLF0eKUJCxzTYrgm3hHLvCLhrCNl7kwd8JnsfEtoiryN4PR/WJJ2oht4CNXSVRddG70pL/pBjFdt/k4tP6VIphojoi+av5VkmfeGZj3GVM26F7nM6xMu7FFDZEvUiL43gvO8qul29g78tpc7I0fNcwlkW4RNH6e7kHQqGQ05V0iQOzg0P3gvjV3zJLbGTyGUxkvQTVe70rLc+mMntzcIZNspMLOVHL5Ldt+MrA95RYotyqi3ZKlnzuzzwSvUo8Fg8oe16Ld+KrGC7GMnAOZc8CMSciCK34a+hvPWYOblAoruM4mQterYuD+zKFYu//KBTDxWEIRhLJGZDDUo2jfP4Cb8RTsIrje0Ins/9PFV+YL8wX5gsbGPsjwABcX8pv6GNgWwAAAABJRU5ErkJggg==') 50% 50% no-repeat;
+          background-size: 0.19rem 0.19rem;
+        }
+        .form-row.bottom-line {
+          border-bottom: 1px solid #727272;
+        }
+        .form-row .input-title {
+            position: absolute;
+            display: inline-block;
+            top: -0.20rem;
+            left: 0;
+            line-height: 0.28rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="result">
+        <div class="form-row alpha bottom-line">
+            <span class="input-title row-title" style="display:none;">手机号</span>
+            <input id="cellphone" type="text" placeholder="请输入手机号" class="form-text">
+            <span class="input-add-on txt-clear" style="display: none;"></span>
+        </div>
+        <div class="form-row alpha bottom-line">
+            <span class="input-title row-title" style="display:none;">密码</span>
+            <input id="password" type="password" placeholder="请输入8位以上密码" class="form-pwd">
+            <span class="input-add-on txt-toggle txt-hide"></span>
+            <span class="input-add-on txt-clear" style="display: none;"></span>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" charset="utf-8" src="../libs/requirejs/require.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="./map.js"></script>
+<script type="text/javascript">
+    require(['jquery','G','gInput'],function($, G, gInput){
+        $('#result').find('input.form-text, input.form-pwd').gInput({titleUp:true});
+    });
+</script>
+</html>
+
