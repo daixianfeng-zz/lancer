@@ -75,13 +75,18 @@
             var gSuspensionBox = new SuspensionBox(this, box, conf);
             return gSuspensionBox.init();  
         }*/
-        $.fn.extend({gSuspensionBox: function(box, conf){
-            var gSuspensionBox  = new SuspensionBox(this, box, conf);
-            return gSuspensionBox.init(); }
+        $.fn.extend({
+            gSuspensionBox: function(box, conf){
+                this.each(function(i, el){
+                    var gSuspensionBox  = new SuspensionBox($(el), box, conf);
+                    gSuspensionBox.init();
+                });
+                return this;
+            }
         });
 
         // 实例方式
-        // return SuspensionBox;
+        return SuspensionBox;
     }
     
     
