@@ -1,17 +1,20 @@
 ;(function(){    
     var AjaxValidate = function(){};
     if ( typeof define === "function" && define.amd ) {
-        define( 'GAjaxValidate', ['require', 'jquery', 'G', 'gValidate', 'gDialog'], function(require) {
-            factory(require('jquery'), require('G'), require('gValidate'), require('gDialog'));
+        define( 'GAjaxValidate', ['require', 'jquery', 'G', 'gValidate', 'gDialog', 'gWebDialog'], function(require) {
+            factory(require('jquery'), require('G'), require('gValidate'), require('gDialog'), require('gWebDialog'));
             return AjaxValidate;
         } );
     }else if ( typeof module === "object" && typeof module.exports === "object" ) {
-        factory(require('jquery'), require('G'), require('gValidate'), require('gDialog'))
+        factory(require('jquery'), require('G'), require('gValidate'), require('gDialog'), require('gWebDialog'));
         module.exports = AjaxValidate;
     }else{
-        factory(window.jQuery, window.G, window.gValidate, window.gDialog);
+        factory(window.jQuery, window.G, window.gValidate, window.gDialog, window.gWebDialog);
     }
-    function factory($, G, gValidate, gDialog){
+    function factory($, G, gValidate, gDialog, gWebDialog){
+        if(!G.UA()['isMobile']){
+            gDialog = gWebDialog;
+        }
         AjaxValidate = function(config){
             this.init(config);
             this.timeoutIndex = 0;
@@ -101,8 +104,10 @@
 
                                     if(res === true){
                                         jTip.removeClass('alert').html('');
-                                    }else{
+                                    }else if(typeof res === 'string'){
                                         jTip.addClass('alert').html(name + res);
+                                    }else{
+                                        jTip.addClass('alert').html(res[0] + name + res[1]);
                                     }
                                 });
                             }
@@ -144,8 +149,11 @@
                             }else{
                                 res = gValidate.judge(this.data[param], validator);
                             }
-                            if(res !== true){
+                            if(res !== true && typeof res === 'string'){
                                 this.failTip(name + res, jTip);
+                                return false;
+                            }else if(res !== true){
+                                this.failTip(res[0] + name + res[1], jTip);
                                 return false;
                             }
                         }

@@ -13,6 +13,17 @@
 	}
 	function factory($){
 		var readyEvent = [];
+		G.UA = function(){
+			var u = navigator.userAgent;
+		    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+		    var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		    var isMobile = /Android|webOS|Pad|iPhone|iPod|Windows Phone|BlackBerry|MeeGo/i.test(u);
+		    return {
+		    	isAndroid: isAndroid,
+		    	isIOS: isIOS,
+		    	isMobile: isMobile
+		    };
+		};
 		G.ddpr = function(){
 			$(window).on('resize', function(e){
 		    	var sWidth = $(window).width();
@@ -110,6 +121,18 @@
 				return money;
 			}
 		};
+		G.numberToWan = function(number, f){
+			if(+number === +number){
+				return G.numberToMoney(+number / 10000, f); 
+			}else if(typeof number === 'undefined'){
+				return '';
+			}else{
+				return number + '';
+			}
+		};
+		G.wanToNumber = function(money){
+			return G.moneyToNumber(money) * 10000; 
+		};
 
 		G.moneyAdd = function(moneyArr){
 			var result = 0;
@@ -197,6 +220,41 @@
 			var fullMinute = ('0' + time.getMinutes()).substr(-2);
 			var fullSecond = ('0' + time.getSeconds()).substr(-2);
 			return fullHour + ':' + fullMinute + ':' + fullSecond;
+		};
+		G.datetimeFormat = function(time, reg){
+			time = time ? new Date(time) : new Date();
+			var fullYear = time.getFullYear();
+			var fullMonth = ('0' + (time.getMonth() + 1)).substr(-2);
+			var fullDate = ('0' + time.getDate()).substr(-2);
+			var fullHour = ('0' + time.getHours()).substr(-2);
+			var fullMinute = ('0' + time.getMinutes()).substr(-2);
+			var fullSecond = ('0' + time.getSeconds()).substr(-2);
+			if(reg === 'time'){
+				return fullHour + ':' + fullMinute + ':' + fullSecond;
+			}
+			return fullYear + '-' + fullMonth + '-' + fullDate + ' '+ fullHour + ':' + fullMinute + ':' + fullSecond;
+		};
+		G.datetimeBeforeFormat = function(time, reg){
+			time = time ? new Date(time) : new Date();
+			var timeDay = (new Date(time)).setHours(0,0,0,0);
+			var now = (new Date()).setHours(0,0,0,0);
+			var inter = (+now - timeDay) / 1000 / 3600 / 24;
+			var fullYear = time.getFullYear();
+			var fullMonth = ('0' + (time.getMonth() + 1)).substr(-2);
+			var fullDate = ('0' + time.getDate()).substr(-2);
+			var fullHour = ('0' + time.getHours()).substr(-2);
+			var fullMinute = ('0' + time.getMinutes()).substr(-2);
+			var fullSecond = ('0' + time.getSeconds()).substr(-2);
+			var beforeStr = fullYear + '-' + fullMonth + '-' + fullDate + ' ';
+			if(inter === 1){
+				beforeStr = '昨日 ';
+			}else if(inter === 0){
+				beforeStr = '今日 ';
+			}
+			if(reg === 'date'){
+				return beforeStr;
+			}
+			return beforeStr+ fullHour + ':' + fullMinute + ':' + fullSecond;
 		};
 		G.timestampFormat = function(date, reg){
 			if(!date || !date.split){

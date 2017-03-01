@@ -1,17 +1,20 @@
 ;(function(){	
 	var Verification = function(){};
 	if ( typeof define === "function" && define.amd ) {
-	    define( 'GVerification', ['require', 'jquery', 'G', 'gDialog'], function(require) {
-	        factory(require('jquery'), require('G'), require('gDialog'));
+	    define( 'GVerification', ['require', 'jquery', 'G', 'gDialog', 'gWebDialog'], function(require) {
+	        factory(require('jquery'), require('G'), require('gDialog'), require('gWebDialog'));
 	        return Verification;
 	    } );
 	}else if ( typeof module === "object" && typeof module.exports === "object" ) {
-        factory(require('jquery'), require('G'), require('gDialog'))
+        factory(require('jquery'), require('G'), require('gDialog'), require('gWebDialog'))
         module.exports = Verification;
     }else{
-	    factory(window.jQuery, window.G, window.gDialog);
+	    factory(window.jQuery, window.G, window.gDialog, window.gWebDialog);
 	}
-	function factory($, G, gDialog){
+	function factory($, G, gDialog, gWebDialog){
+        if(!G.UA()['isMobile']){
+            gDialog = gWebDialog;
+        }
 		var defaultConfig = {
 			resendSecond: 60,
 			clickStart: true,

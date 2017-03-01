@@ -32,6 +32,29 @@
 	border-radius: 10px;
 	background: #fff;
 }
+#g-alert .g-title,
+#g-confirm .g-title {
+	position: relative;
+	padding: 12px 50px;
+	text-align: center;
+	border-bottom: 1px solid #b6b6b6;
+	line-height: 16px;
+	text-align: center;
+	font-size: 14px;
+	color: #353535;
+	word-break: break-all;
+}
+#g-alert .g-title .g-shut,
+#g-confirm .g-title .g-shut {
+	position: absolute;
+	top: 0;
+	left: 100%;
+	width: 40px;
+	height: 40px;
+	margin-left: -40px;
+	line-height: 40px;
+	cursor: pointer;
+}
 #g-alert .g-content,
 #g-confirm .g-content {
 	position: relative;

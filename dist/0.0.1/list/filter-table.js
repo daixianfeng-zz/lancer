@@ -177,17 +177,20 @@
                 var conf = this.conf;
                 var info = {};
                 var trStr = '';
-                var tbodyTr = '';
+                var tbodyTr = '';    
+                $(el).find('.filter-tbody tr').remove();
+                if(this.conf.format){
+                    data = this.conf.format(data);
+                }
                 $.each(data ,function(index, item){
                     $.each(conf.col, function(i, value){
                         var output = value.dataName;                        
                         trStr += '<td data-order="'+(i+1)+'">'+item[output]+'</td>';
                     });
-                    tbodyTr += '<tr>'+ trStr +'</tr>';
+                    tbodyTr = '<tr>'+ trStr +'</tr>';
+                    $(tbodyTr).data('tr-data', item).appendTo($(el).find('.filter-tbody'));
                     trStr = '';
-                });                                          
-                $(el).find('.filter-tbody tr').remove();
-                $(el).find('.filter-tbody').append(tbodyTr);
+                });
                 tbodyTr = '';
                 if(conf.nowrap){
                     this.setNowrap(); 
