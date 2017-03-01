@@ -1,7 +1,7 @@
 ;(function(){
 	var gDialog = {};
 	if ( typeof define === "function" && define.amd ) {
-	    define( 'gDialogWeb', ['require', 'jquery', 'G'], function(require) {
+	    define( 'gWebDialog', ['require', 'jquery', 'G'], function(require) {
 	        factory(require('jquery'), require('G'));
 	        return gDialog;
 	    } );

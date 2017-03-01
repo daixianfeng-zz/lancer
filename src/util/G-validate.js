@@ -215,6 +215,7 @@
         };
 
         gValidate.judgeCellphone = function(cellphone){
+            cellphone = cellphone.replace(/\D/g,'');
             if(!cellphone){
                 return false;
             }else if(!(/^1[3|4|5|7|8]\d{9}$/.test(cellphone))){
@@ -241,20 +242,37 @@
                 return true;
             }
         };
+        gValidate.judgePlus = function(num){
+            if(!num){
+                return false;
+            }else if(+num > 0 || G.moneyToNumber(num) > 0){
+                return true;
+            }else{
+                return false;
+            }
+        };
         gValidate.judge = function(val, queue){
             var validateArr = (queue instanceof Array) ? queue : [queue];
             var result = true;
             for(var i=0;i<validateArr.length;i++){
                 var validate = validateArr[i];
-                switch(validate){
-                    case 'require': if(val!==0 && !val){return '不能为空';}break;
-                    case 'loginPwd': if((val===0 || val) && !gValidate.judgePassword(val)){return '格式为8-20位数字与字母组合';}break;
-                    case 'tradePwd': if((val===0 || val) && !gValidate.judgeTrade(val)){return '格式为8-20位数字与字母组合';}break;
-                    case 'cellphone': if((val===0 || val) && !gValidate.judgeCellphone(val)){return '格式不正确';}break;
-                    case 'bankcard': if((val===0 || val) && !gValidate.judgeBankCard(val)){return '格式不正确';}break;
-                    case 'identify': if((val===0 || val) && !gValidate.judgeIdcard(val)){return '格式不正确';}break;
-                    case 'truename': if((val===0 || val) && !gValidate.judgeTruename(val)){return '格式不正确';}break;
-                    default:  break;
+                if(validate instanceof Function){
+                    var fnReuslt = validate(val);
+                    if(fnReuslt !== true){
+                        return fnReuslt;
+                    }
+                }else{
+                    switch(validate){
+                        case 'require': if(val!==0 && !val){return ['请填写',''];}break;
+                        case 'loginPwd': if((val===0 || val) && !gValidate.judgePassword(val)){return '格式为8-20位数字与字母组合';}break;
+                        case 'tradePwd': if((val===0 || val) && !gValidate.judgeTrade(val)){return '格式为8-20位数字与字母组合';}break;
+                        case 'cellphone': if((val===0 || val) && !gValidate.judgeCellphone(val)){return '格式不正确';}break;
+                        case 'bankcard': if((val===0 || val) && !gValidate.judgeBankCard(val)){return '格式不正确';}break;
+                        case 'identify': if((val===0 || val) && !gValidate.judgeIdcard(val)){return '格式不正确';}break;
+                        case 'truename': if((val===0 || val) && !gValidate.judgeTruename(val)){return '格式不正确';}break;
+                        case 'plus': if((val===0 || val) && !gValidate.judgePlus(val)){return '必须大于0';}break;
+                        default:  break;
+                    }
                 }
             }
             return result;

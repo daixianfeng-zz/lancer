@@ -14,7 +14,7 @@ requirejs.config({
         gUser: toolPathRoot+'util/G-user',
         gValidate: toolPathRoot+'util/G-validate',
         gDialog: toolPathRoot+'dialog/dialog',
-        gDialogWeb: toolPathRoot+'dialog/dialog-web',
+        gWebDialog: toolPathRoot+'dialog/dialog-web',
         GVerification: toolPathRoot+'verification/verification',
         gFixedTop: toolPathRoot+'block/fixed-top',
         gTab: toolPathRoot+'block/tab',

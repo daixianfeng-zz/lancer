@@ -179,6 +179,9 @@
                 var trStr = '';
                 var tbodyTr = '';    
                 $(el).find('.filter-tbody tr').remove();
+                if(this.conf.format){
+                    data = this.conf.format(data);
+                }
                 $.each(data ,function(index, item){
                     $.each(conf.col, function(i, value){
                         var output = value.dataName;                        
