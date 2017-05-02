@@ -265,7 +265,7 @@
                     switch(validate){
                         case 'require': if(val!==0 && !val){return ['请填写',''];}break;
                         case 'loginPwd': if((val===0 || val) && !gValidate.judgePassword(val)){return '格式为8-20位数字与字母组合';}break;
-                        case 'tradePwd': if((val===0 || val) && !gValidate.judgeTrade(val)){return '格式为8-20位数字与字母组合';}break;
+                        case 'tradePwd': if((val===0 || val) && !gValidate.judgeTrade(val)){return '格式为6位数字';}break;
                         case 'cellphone': if((val===0 || val) && !gValidate.judgeCellphone(val)){return '格式不正确';}break;
                         case 'bankcard': if((val===0 || val) && !gValidate.judgeBankCard(val)){return '格式不正确';}break;
                         case 'identify': if((val===0 || val) && !gValidate.judgeIdcard(val)){return '格式不正确';}break;

@@ -1,17 +1,17 @@
 ;(function(){
 	var G = window.G || {};
 	if ( typeof define === "function" && define.amd ) {
-		define( 'G', ['require', 'jquery'], function(require) {
-			factory(require('jquery'));
+		define( 'G', ['require', 'jquery', 'JSEncrypt'], function(require) {
+			factory(require('jquery'), require('JSEncrypt'));
 			return G;
 		} );
 	}else if ( typeof module === "object" && typeof module.exports === "object" ) {
-		factory(require('jquery'));
+		factory(require('jquery'), require('JSEncrypt'));
 		module.exports = G;
 	}else{
-		factory(window.jQuery);
+		factory(window.jQuery, window.JSEncrypt);
 	}
-	function factory($){
+	function factory($, JSEncrypt){
 		var readyEvent = [];
 		G.UA = function(){
 			var u = navigator.userAgent;
@@ -27,12 +27,12 @@
 		G.ddpr = function(){
 			$(window).on('resize', function(e){
 		    	var sWidth = $(window).width();
+				var sFont = sWidth / 375 * 100;
 				if(sWidth > 420){
 					$('html').css('fontSize', '112px');
 				}else if(sWidth < 320){
 					$('html').css('fontSize', '85.33px');
 				}else{
-					var sFont = sWidth / 375 * 100;
 					$('html').css('fontSize', sFont+'px');
 				}
 		    });
@@ -41,7 +41,8 @@
 		    	e.preventDefault();
 		    });
 		};
-		G.getCommonParams = function(){
+		G.getCommonParams = function(CommonParamsPage){
+			CommonParamsPage = CommonParamsPage || '/_common_params';
 			var getRenderData = function(){
 				var renderDataDocument = $('#render-data')[0].contentWindow.document;
 				var token = $(renderDataDocument).find("meta[name='_csrf']").attr('content');
@@ -63,7 +64,7 @@
 				$('head').append('<meta name="_render_ready" content="ready">');
 				G.onReady();
 			};
-			var $renderData = $('<iframe id="render-data" src="/_common_params" frameborder="0" style="width:0;height:0;position:absolute;bottom:0;left:0;border:0;"></iframe>');
+			var $renderData = $('<iframe id="render-data" src="'+CommonParamsPage+'" frameborder="0" style="width:0;height:0;position:absolute;bottom:0;left:0;border:0;"></iframe>');
 		    if($renderData[0].attachEvent){
 			    $renderData[0].attachEvent("onload", function(){
 			        getRenderData();
@@ -206,7 +207,21 @@
 			});
 			return baseUrl+'?'+queryArr.join('&');
 		};
-
+		G.strToDate = function(date){
+			if(!date || !date.split){
+				return (+new Date());
+			}
+			var dateArr = date.split('-');
+			var now = new Date();
+			var dateObj = now;
+			if(dateArr[0] && dateArr[1]){
+				var year = dateArr[2] ? +dateArr[0] : now.getFullYear();
+				var month = dateArr[2] ? +dateArr[1] : +dateArr[0];
+				var day = dateArr[2] ? +dateArr[2] : +dateArr[1];
+				dateObj = new Date(+year,+month-1,+day);
+			}
+			return dateObj;
+		};
 		G.dateFormat = function(date, reg){
 			date = date ? new Date(date) : new Date();
 			var fullYear = date.getFullYear();
@@ -272,9 +287,6 @@
 			return timeStamp;
 		};
 
-		G.benifitCalc = function(base, rate, howlong, type){
-
-		};
 		var staticPublicKey = 'MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDRzXbucFpvRdNkmbewx52YxyJSdykmR5a6yZV8AYEWmvYrQRGltPksZZEODtX6zCdgHdp/8AaINuAiF9z9bsZ9caqyq37GU2hBiQ8ltMRUhtyjGcDDlriS2ja1ZQithrbrRuISLUR/3Ost68zqBz+qOG4MU5J2dTaIFuxraCIb/QIDAQAB';
 		G.getCipher = function(text, publicKey){
 			var curPublicKey = $("meta[name='_cipher_public']").attr('content');

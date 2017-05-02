@@ -1,17 +1,17 @@
 ;(function(){	
 	var Verification = function(){};
 	if ( typeof define === "function" && define.amd ) {
-	    define( 'GVerification', ['require', 'jquery', 'G', 'gDialog', 'gWebDialog'], function(require) {
-	        factory(require('jquery'), require('G'), require('gDialog'), require('gWebDialog'));
+	    define( 'GVerification', ['require', 'jquery', 'G', 'gValidate', 'gDialog', 'gWebDialog'], function(require) {
+	        factory(require('jquery'), require('G'), require('gValidate'), require('gDialog'), require('gWebDialog'));
 	        return Verification;
 	    } );
 	}else if ( typeof module === "object" && typeof module.exports === "object" ) {
-        factory(require('jquery'), require('G'), require('gDialog'), require('gWebDialog'))
+        factory(require('jquery'), require('G'), require('gValidate'), require('gDialog'), require('gWebDialog'))
         module.exports = Verification;
     }else{
-	    factory(window.jQuery, window.G, window.gDialog, window.gWebDialog);
+	    factory(window.jQuery, window.G, window.gValidate, window.gDialog, window.gWebDialog);
 	}
-	function factory($, G, gDialog, gWebDialog){
+	function factory($, G, gValidate, gDialog, gWebDialog){
         if(!G.UA()['isMobile']){
             gDialog = gWebDialog;
         }
@@ -72,7 +72,7 @@
 				var res = true;
 				if(self.config.isCellphoneJudge){
 					var cellphone = data[self.config.phoneParam];
-					res = G.judgeCellphone(cellphone);
+					res = gValidate.judgeCellphone(cellphone);
 				}
 				if(res !== true){
 					failTip('请输入正确的手机号码', self.config.tipArea);

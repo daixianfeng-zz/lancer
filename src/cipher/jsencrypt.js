@@ -4325,7 +4325,7 @@ window.JSEncrypt = JSEncrypt;
 var JSEncrypt = JSEncryptExports.JSEncrypt;
 
 if ( typeof define === "function" && define.amd ) {
-    define( 'jsencrypt', ['require'], function(require) {
+    define( 'JSEncrypt', ['require'], function(require) {
         return JSEncrypt;
     } );
 }

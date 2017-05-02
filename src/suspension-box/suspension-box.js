@@ -37,15 +37,14 @@
                 $(box).hide();
                 var event = conf.event;
                 var self = this;
-                if(event == 'click') {
-                    $(document).on('click', function(){
+                if(event === 'click') {
+                    $(document).on('click', function(e){
+                        if( $(e.target).closest(box).length>0 ){
+                            return false;
+                        }
                         $(box).is(':visible') && $(box).hide();
                     });
-                    $(box).on('click', function(){
-                        $(box).show();
-                        return false; //阻止冒泡事件
-                    });
-                }else if(event == 'mouseenter'){
+                }else if(event === 'mouseenter'){
                     $(el).on('mouseleave', function(){
                         $(box).hide();  
                         return false; 
@@ -60,7 +59,8 @@
                 }
                 $(el).on(event, function(){
                     $(box).toggle();
-                    self._render(el, box, conf);                 
+                    // $(box).show();
+                    self._render(this, box, conf);                 
                     return false;
                 });         
             },
