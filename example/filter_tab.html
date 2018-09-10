@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>test filter tab</title>
+    <meta name="link-referer" content="">
+    <style>
+        #tab-container {
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+        }
+        #tab-container .g-ft-item {
+            text-align: center;
+            flex: 1;
+        }
+        .g-ft-list {
+            display: none;
+        }
+        .g-ft-list-active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <ul id="tab-container">
+        <li id="filter-invitor" data-ft-list="invitor" class="g-ft-item" data-ft-title="邀请码">
+            <span class="g-ft-title-text">邀请码</span>
+        </li>
+        <li id="filter-my" data-ft-list="my" class="g-ft-item" data-ft-title="我的">
+            <span class="g-ft-title-text">我的</span>
+        </li>
+    </ul>
+    <p id="conditions"></p>
+    <div id="invitor" class="g-ft-list" data-ft-item="filter-invitor">
+        <ul>
+            <li data-ft-text="" class="g-ft-cell select-all">all</li>
+            <li data-ft-text="1" class="g-ft-cell">a</li>
+            <li data-ft-text="2" class="g-ft-cell">b</li>
+            <li data-ft-text="3" class="g-ft-cell">c</li>
+        </ul>
+    </div>
+    <div id="my" class="g-ft-list" data-ft-item="filter-my">
+        <ul>
+            <li data-ft-text="" class="g-ft-cell select-all">all</li>
+            <li data-ft-text="x" class="g-ft-cell">xx</li>
+            <li data-ft-text="y" class="g-ft-cell">yy</li>
+            <li data-ft-text="z" class="g-ft-cell">zz</li>
+        </ul>
+    </div>
+</body>
+<script type="text/javascript" charset="utf-8" src="../libs/requirejs/require.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="./map.js"></script>
+
+<script>
+    
+    require(['jquery','gFilterTab'], function($, gTab){
+        $('#tab-container').gFilterTab();
+        var conditions = {};
+        $('.g-ft-list').on('gFilterTabSelect', '.g-ft-cell', function(){
+            conditions.invitor = $('#invitor').find('.g-ft-cell-selected').attr('data-ft-text');
+            conditions.my = $('#my').find('.g-ft-cell-selected').attr('data-ft-text');
+            $('#conditions').html(JSON.stringify(conditions));
+        });
+    });
+
+</script>
+</html>

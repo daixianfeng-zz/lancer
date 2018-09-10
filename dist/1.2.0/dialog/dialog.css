@@ -1,0 +1,78 @@
+#s-mask {
+	z-index: 999997;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	display: none;
+	background: rgba(0,0,0,0.7);
+}
+#g-alert, #g-confirm {
+	z-index: 999999;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	background-color: #fff;
+	display: none;
+}
+#g-alert {
+	width: 3.16rem;
+	min-height: 1rem;
+	margin-top: -1rem;
+	margin-left: -1.63rem;
+	border-radius: 0.1rem;
+	background: #fff;
+}
+#g-confirm {
+	width: 3.16rem;
+	min-height: 1rem;
+	margin-top: -1rem;
+	margin-left: -1.63rem;
+	border-radius: 0.1rem;
+	background: #fff;
+}
+#g-alert .g-content,
+#g-confirm .g-content {
+	position: relative;
+	padding: 0.15rem 0.12rem 0.6rem 0.12rem;
+	text-align: center;
+	font-size: 0.14rem;
+	color: #353535;
+	word-break: break-all;
+}
+#g-alert .g-bottom,
+#g-confirm .g-bottom {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: 0.45rem;
+	text-align: center;
+	line-height: 0.45rem;
+	color: #353535;
+	font-size: 0.16rem;
+	border-top: 1px solid #b6b6b6;
+}
+#g-alert .g-close,
+#g-confirm .g-close {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+}
+#g-alert .g-cancel,
+#g-confirm .g-cancel {
+	display: inline-block;
+	width: 49%;
+	height: 100%;
+	color: #999;
+}
+#g-alert .g-ok,
+#g-confirm .g-ok {
+	display: inline-block;
+	width: 49%;
+	height: 100%;
+}
+#g-confirm .btn-half:first-child {
+	border-right: 1px solid #b6b6b6;
+}

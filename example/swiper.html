@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+
+    <title>test modal</title>
+    <meta name="link-referer" content="">
+    <link rel="stylesheet" href="../libs/animate/animate.min.css">
+    <style>
+        #swiper-container {
+            width: 600px;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+        .swiper-item {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #item-1 {
+            background: #111;
+        }
+        #item-2 {
+            background: #555;
+        }
+        #item-3 {
+            background: #999;
+        }
+        #item-4 {
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+    <div id="result">
+        <p><button id="test-modal">banner测试</button></p>
+    </div>
+    <div id="swiper-container">
+        <div id="item-1" class="swiper-item"></div>
+        <div id="item-2" class="swiper-item"></div>
+        <div id="item-3" class="swiper-item"></div>
+        <div id="item-4" class="swiper-item"></div>
+    </div>
+    <div class="swiper-control">
+        <button id="swiper-left">上一页</button>
+        <button id="swiper-right">下一页</button>
+    </div>
+</body>
+<script type="text/javascript" charset="utf-8" src="../libs/requirejs/require.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="./map.js"></script>
+<script type="text/javascript">
+   
+    require(['jquery','G','GSwiper'],function($, G, GSwiper){
+        // $.fn.extend({
+        //     animateCss: function (animationName, callback) {
+        //         var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        //         $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+        //             $(this).removeClass('animated ' + animationName);
+        //             callback && callback();
+        //         });
+        //         return this;
+        //     }
+        // });
+        window.swiper = new GSwiper('#swiper-container', {
+            itemClass: 'swiper-item',
+            touchSwitch: true,
+            autoNext: 2000,
+            leftBtn: $('#swiper-left'),
+            rightBtn: $('#swiper-right')
+        })
+        
+    });
+</script>
+</html>
+

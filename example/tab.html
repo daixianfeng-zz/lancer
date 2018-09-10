@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>test nav</title>
+    <meta name="link-referer" content="">
+    <style>
+        #tab-container {
+            width: 100%;
+            overflow: hidden;
+        }
+        #tab-container .g-tab-item {
+            width: 50%;
+            text-align: center;
+            float: left;
+        }
+        .g-tab-block {
+            display: none;
+        }
+        .g-tab-block-active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <ul id="tab-container">
+        <li data-tab-block="invitor" class="g-tab-item">邀请码</li>
+        <li data-tab-block="my" class="g-tab-item">我的</li>
+    </ul>
+    <div id="invitor" class="g-tab-block">
+        <h3>光合作用理财顾问</h3>
+        <h6 class="user-name">用户名</h6>
+        <p>邀请您成为光合作用理财师</p>
+        <div id="qr-code" class="qr-code"></div>
+        <p>认证理财师，享高额返佣福利 </p>
+    </div>
+    <div id="my" class="g-tab-block">
+        <ul id="inner">
+            <li data-tab-block="inner-1" class="g-tab-item">邀请码</li>
+            <li data-tab-block="inner-2" class="g-tab-item">我的</li>
+        </ul>
+        <div id="inner-1" class="g-tab-block">
+            111
+        </div>
+        <div id="inner-2" class="g-tab-block">
+            222
+        </div>
+    </div>
+</body>
+<script type="text/javascript" charset="utf-8" src="../libs/requirejs/require.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="./map.js"></script>
+<!-- <script type="text/javascript" charset="utf-8" src="../dist/0.0.1/block/tab.js"></script> -->
+
+<script>
+    
+    require(['jquery','gTab'], function($, gTab){
+        $('#tab-container').gTab();   
+        $('#inner').gTab();   
+    });
+
+    // require(['jquery','gTab'], function($, gTab){
+    //     new gTab('#tab-container',{});    
+    // });
+</script>
+</html>

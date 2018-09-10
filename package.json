@@ -1,20 +1,20 @@
 {
   "name": "lancer",
-  "version": "0.0.1",
+  "version": "1.2.0",
   "title": "lancer tools",
   "description": "",
   "keywords": [
     "lancer"
   ],
-  "homepage": "https://github.com/daixianfeng/lancer",
+  "homepage": "http://121.40.161.239/aladdin/fe-static.git",
   "author": {
     "name": "Daixianfeng",
-    "url": "dai_xianfeng@hotmail.com"
+    "url": "daixianfeng@huilianjk.com"
   },
   "maintainers": [],
   "repository": {
     "type": "git",
-    "url": "https://github.com/daixianfeng/lancer.git"
+    "url": "http://121.40.161.239/aladdin/fe-static.git"
   },
   "dependencies": {
     "gulp-pug": "^3.2.0"
@@ -22,7 +22,10 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
+    "gulp-clean-css": "^3.9.0",
     "gulp-less": "^3.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
     "gulp-webserver": "^0.9.1"
   }
 }
