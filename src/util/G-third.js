@@ -33,7 +33,7 @@
             if(params['rsd']){
                 return params['rsd'];
             }else{
-                return 'tjbhb';
+                return '';
             }
         }
         gThird._get_ru = function(){
@@ -46,14 +46,14 @@
     	
         gThird.getDomain = function(ru){
             ru = ru || gThird._get_ru();
-            return url('hostname', ru) || 'e.tjbhb.com';
+            return url('hostname', ru) || '/';
         }
 
         gThird.isRightDomain = function(rsd, ru){
             rsd = rsd || gThird._get_rsd();
             ru = ru || gThird._get_ru();
             var ruDomain = gThird.getDomain(ru);
-            if(ruDomain === 'e.tjbhb.com'){
+            if(ruDomain === ''){
                 return true;
             }
             var rIndex = -1;
@@ -69,11 +69,6 @@
             rsd = rsd || gThird._get_rsd();
             oc = oc || gThird._get_oc();
             var passportUrl = '';
-            if(rsd === 'souhuibao'){
-                if(oc === 200){
-                    passportUrl = '/souhuibao/login.json';
-                }
-            }
             return passportUrl;
         }
         gThird.successOpt = function(rsd, oc, data, callback){
