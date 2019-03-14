@@ -75,16 +75,14 @@
             rsd = rsd || gThird._get_rsd();
             oc = oc || gThird._get_oc();
             var ru = gThird._get_ru();
-            if(rsd === 'souhuibao'){
-                if(oc === 200){
-                    var ruBaseUrl = url('protocol', ru) +'://'+ url('hostname', ru) +':'+ url('port', ru) + url('path', ru);
-                    var ruParams = url('?', ru) || {};
-                    var addParams = {telephone: data.telephone, sign: data.sign};
-                    var redirectUrl = G.setUrl($.extend({}, ruParams, addParams), ruBaseUrl);
-                    setTimeout(function(){
-                        document.location.href = redirectUrl;
-                    }, 0);
-                }
+            if(oc === 200){
+                var ruBaseUrl = url('protocol', ru) +'://'+ url('hostname', ru) +':'+ url('port', ru) + url('path', ru);
+                var ruParams = url('?', ru) || {};
+                var addParams = {telephone: data.telephone, sign: data.sign};
+                var redirectUrl = G.setUrl($.extend({}, ruParams, addParams), ruBaseUrl);
+                setTimeout(function(){
+                    document.location.href = redirectUrl;
+                }, 0);
             }
             if(callback){
                 callback();
