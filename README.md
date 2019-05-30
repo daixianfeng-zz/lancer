@@ -1,4 +1,6 @@
 # lancer
 common tools for myself
 
-### developing now, can not use now!!!
+with jquery
+
+### can not use directly
